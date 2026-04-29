@@ -43,9 +43,9 @@ ul{list-style:none;}
 /* FLOATING BUTTONS */
 #btt,#wa{position:fixed;z-index:800;border:none;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;transform:translateY(12px);}
 #btt.show,#wa.show{opacity:1;transform:translateY(0);pointer-events:all;}
-#btt{bottom:2rem;right:1.5rem;width:44px;height:44px;background:var(--gold);color:var(--black);font-size:.9rem;}
+#btt{bottom:5rem;right:1.5rem;width:44px;height:44px;background:var(--gold);color:var(--black);font-size:.9rem;}
 #btt:hover{background:var(--gold-l);}
-#wa{bottom:2rem;left:1.5rem;width:52px;height:52px;background:#25D366;color:#fff;border-radius:50%;font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,.4);}
+#wa{bottom:1rem;right:1.5rem;width:52px;height:52px;background:#25D366;color:#fff;border-radius:50%;font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,.4);}
 #wa:hover{transform:scale(1.1);}
 
 /* COOKIE */
@@ -384,8 +384,8 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,.1);}
   .hctas .btn{width:100%;justify-content:center;}
   .ftop{grid-template-columns:1fr;}
   .fbot{flex-direction:column;text-align:center;}
-  #btt{bottom:5.5rem;}
-  #wa{bottom:5.5rem;}
+  #btt{bottom:6rem;right:1rem;}
+  #wa{bottom:1rem;right:1rem;}
 }
 @media(max-width:400px){
   .hstroke{font-size:clamp(3.5rem,16vw,5rem);}
@@ -855,7 +855,7 @@ We do not manufacture elevator components. We use quality parts sourced from tru
         <div class="areatgs">
           <span class="areatg">Tirupati</span><span class="areatg">Srikalahasti</span><span class="areatg">Puttur</span><span class="areatg">Chandragiri</span><span class="areatg">Nayudupeta</span><span class="areatg">Gudur</span><span class="areatg">Sullurupeta</span><span class="areatg">Tada</span><span class="areatg">Satyavedu</span><span class="areatg">+ More on request</span>
         </div>
-        <div style="margin-top:2rem;"><a href="tel:+918179492454" class="btn bg"><i class="fas fa-phone"></i><span>Call Our Team</span></a></div>
+        <div style="margin-top:2rem;"><a href="tel:+918179492454" class="btn bg"><i class="fas fa-phone"></i><span>Call Bindu Elevators</span></a></div>
       </div>
       <div class="mapc">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d122986.11!2d79.9867!3d14.4674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4cfad9b2fea001%3A0x3af11cc6d80c6e78!2sTirupati%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bindu Elevators Location" allowfullscreen></iframe>
@@ -883,25 +883,81 @@ We do not manufacture elevator components. We use quality parts sourced from tru
         </div>
       </div>
       <div class="cform rr">
-        <h3 class="cft">Request a Free Quote</h3>
-        <form id="cfrm" novalidate>
-          <div class="frow">
-            <div class="fg" id="fg-name"><label class="fgl" for="fn">Full Name *</label><input class="fgi" id="fn" type="text" placeholder="Your full name" required autocomplete="name"><span class="ferr">Please enter your name</span></div>
-            <div class="fg" id="fg-phone"><label class="fgl" for="fp">Phone Number *</label><input class="fgi" id="fp" type="tel" placeholder="+91 00000 00000" required autocomplete="tel"><span class="ferr">Enter a valid 10-digit number</span></div>
-          </div>
-          <div class="frow">
-            <div class="fg" id="fg-email"><label class="fgl" for="fe">Email Address</label><input class="fgi" id="fe" type="email" placeholder="you@email.com" autocomplete="email"><span class="ferr">Enter a valid email</span></div>
-            <div class="fg"><label class="fgl" for="fc">City *</label><input class="fgi" id="fc" type="text" placeholder="Your city" required autocomplete="address-level2"></div>
-          </div>
-          <div class="fg" id="fg-svc"><label class="fgl" for="fsvc">Service Required *</label><select class="fgs" id="fsvc" required><option value="">— Select a service —</option><option>Passenger Elevator Installation</option><option>Home Lift Installation</option><option>Freight Elevator</option><option>Dumbwaiter / Service Lift</option><option>Annual Maintenance Contract (AMC)</option><option>Modernisation / Upgrade</option><option>Emergency Repair</option><option>Safety Audit</option><option>Other / General Enquiry</option></select><span class="ferr">Please select a service</span></div>
-          <div class="fg"><label class="fgl" for="fbt">Building Type</label><select class="fgs" id="fbt"><option value="">— Select building type —</option><option>Residential Apartment</option><option>Independent Villa / Bungalow</option><option>Commercial Office Building</option><option>Hospital / Healthcare</option><option>Hotel / Hospitality</option><option>Shopping Mall / Retail</option><option>Industrial / Warehouse</option><option>Educational Institution</option><option>Other</option></select></div>
-          <div class="fg"><label class="fgl" for="fmsg">Project Details</label><textarea class="fgt" id="fmsg" placeholder="Tell us about your project — number of floors, passengers, special requirements, timeline, etc."></textarea></div>
-          <button type="submit" class="btn bg" id="fsub" style="width:100%;justify-content:center;font-size:.82rem;padding:1rem;">
-            <i class="fas fa-paper-plane"></i><span id="fsubtxt">Send Enquiry</span>
-          </button>
-          <div class="fmsg" id="fmsgbox"></div>
-        </form>
+  <h3 class="cft">Request a Free Quote </h3>
+  <form id="cfrm" novalidate>
+      <!-- Hidden honeypot field -->
+  <input type="text" name="company" id="hp" style="display:none"> 
+  
+    <div class="frow">
+      <div class="fg" id="fg-name">
+        <label class="fgl" for="fn">Full Name *</label>
+        <input class="fgi" id="fn" name="name" type="text" placeholder="Enter your full name" required autocomplete="name">
+        <span class="ferr">Please enter your name</span>
       </div>
+
+      <div class="fg" id="fg-phone">
+        <label class="fgl" for="fp">Phone Number *</label>
+        <input class="fgi" id="fp" name="phone" type="tel" placeholder="10-digit mobile number" required autocomplete="tel">
+        <span class="ferr">Enter a valid number</span>
+      </div>
+    </div>
+
+    <div class="frow">
+      <div class="fg" id="fg-email">
+        <label class="fgl" for="fe">Email Address</label>
+        <input class="fgi" id="fe" name="email" type="email" placeholder="Enter your email" autocomplete="email">
+        <span class="ferr">Enter a valid email</span>
+      </div>
+
+      <div class="fg">
+        <label class="fgl" for="fc">City *</label>
+        <input class="fgi" id="fc" name="city" type="text" placeholder="Enter your city" required autocomplete="address-level2">
+      </div>
+    </div>
+
+    <div class="fg" id="fg-svc">
+      <label class="fgl" for="fsvc">Service Required *</label>
+      <select class="fgs" id="fsvc" name="service" required>
+        <option value="">Select a service</option>
+        <option>Passenger Elevator Installation</option>
+        <option>Home Lift Installation</option>
+        <option>Maintenance / General Service</option>
+        <option>Repair</option>
+        <option>Modernization / Upgrade</option>
+        <option>Inspection</option>
+        <option>Other / General Enquiry</option>
+      </select>
+      <span class="ferr">Please select a service</span>
+    </div>
+
+    <div class="fg">
+      <label class="fgl" for="fbt">Building Type</label>
+      <select class="fgs" id="fbt" name="building">
+        <option value="">Select building type</option>
+        <option>Residential Apartment</option>
+        <option>Commercial Office Building</option>
+        <option>Independent Villa / Bungalow</option>
+        <option>Hospital / Healthcare</option>
+        <option>Hotel / Hospitality</option>
+        <option>Shopping Mall / Retail</option>
+        <option>Industrial / Warehouse</option>
+        <option>Educational Institution</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="fg">
+      <label class="fgl" for="fmsg">Project Details</label>
+      <textarea class="fgt" id="fmsg" name="message" placeholder="No. of floors, passengers, etc."></textarea>
+    </div>
+
+    <button type="submit" class="btn bg" id="fsub" style="width:100%;justify-content:center;font-size:.82rem;padding:1rem;">
+      <i class="fas fa-paper-plane"></i>
+      <span id="fsubtxt">Send Enquiry</span>
+    </button>
+    <div class="fmsg" id="fmsgbox"></div>
+  </form>
+</div>
     </div>
   </div>
 </section>
@@ -928,6 +984,7 @@ We do not manufacture elevator components. We use quality parts sourced from tru
   </div>
   <div class="fbot">
     <p>© 2026 <a href="#home">Bindu Elevators</a>. All rights reserved. | Tirupati, Andhra Pradesh</p>
+    <p>Developed by <a href="#home">Sethu</a></p>
   </div>
 </footer>
 
@@ -1011,39 +1068,132 @@ document.querySelectorAll('.gli').forEach(el=>el.addEventListener('keydown',e=>{
 /* ── FAQ ── */
 function tFaq(btn){const item=btn.closest('.fqi'),ans=item.querySelector('.fqa'),open=btn.classList.contains('o');document.querySelectorAll('.fqq.o').forEach(q=>{q.classList.remove('o');q.nextElementSibling.classList.remove('o');});if(!open){btn.classList.add('o');ans.classList.add('o');}}
 
-/* ── CONTACT FORM ── */
-document.querySelectorAll('.fgi,.fgs,.fgt').forEach(el=>el.addEventListener('input',()=>el.closest('.fg')?.classList.remove('err')));
+/* ── CONTACT FORM (FINAL CLEAN VERSION) ── */
 
-document.getElementById('cfrm').addEventListener('submit',function(e){
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwNckMm70q5WMx7Eov1aqPKt1R_3AbKNvqzqC6vYtezKCFhRaDYgJNRsS0_PmRTiOxw/exec";
+const WHATSAPP_NUMBER = "918179492454"; 
+
+let isSubmitting = false;
+
+// Remove error on typing
+document.querySelectorAll('.fgi,.fgs,.fgt').forEach(el =>
+  el.addEventListener('input', () =>
+    el.closest('.fg')?.classList.remove('err')
+  )
+);
+
+document.getElementById('cfrm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const name=document.getElementById('fn').value.trim();
-  const phone=document.getElementById('fp').value.trim();
-  const email=document.getElementById('fe').value.trim();
-  const svc=document.getElementById('fsvc').value;
-  let ok=true;
-  // Name
-  const fgN=document.getElementById('fg-name');
-  if(name.length<2){fgN.classList.add('err');ok=false;}else fgN.classList.remove('err');
-  // Phone
-  const fgP=document.getElementById('fg-phone');
-  if(!/^[6-9]\d{9}$/.test(phone.replace(/[\s\-+]/g,''))){fgP.classList.add('err');ok=false;}else fgP.classList.remove('err');
-  // Email
-  const fgE=document.getElementById('fg-email');
-  if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){fgE.classList.add('err');ok=false;}else fgE.classList.remove('err');
-  // Service
-  const fgS=document.getElementById('fg-svc');
-  if(!svc){fgS.classList.add('err');ok=false;}else fgS.classList.remove('err');
-  if(!ok){showMsg('Please fill in all required fields correctly.','no');return;}
-  const btn=document.getElementById('fsub'),txt=document.getElementById('fsubtxt');
-  btn.disabled=true;txt.textContent='Sending…';
-  setTimeout(()=>{
-    btn.disabled=false;txt.textContent='Send Enquiry';
-    this.reset();
-    showMsg('✓ Thank you, '+name+'! We\'ve received your enquiry and will contact you within 24 hours.','ok');
-  },1800);
-});
-function showMsg(msg,cls){const el=document.getElementById('fmsgbox');el.textContent=msg;el.className='fmsg '+cls;el.style.display='block';setTimeout(()=>el.style.display='none',8000);}
 
+  // 🪤 Honeypot (spam protection)
+  const hp = document.getElementById('hp');
+  if (hp && hp.value !== "") return;
+
+  // ⏱️ Rate limit
+  const lastSent = Number(localStorage.getItem('lastSent') || 0);
+  if (Date.now() - lastSent < 15000) {
+    showMsg('Please wait a few seconds before sending again.', 'no');
+    return;
+  }
+
+  // 🔒 Prevent double submit
+  if (isSubmitting) return;
+  isSubmitting = true;
+
+  const name = document.getElementById('fn').value.trim();
+  const phone = document.getElementById('fp').value.trim();
+  const email = document.getElementById('fe').value.trim();
+  const city = document.getElementById('fc').value.trim();
+  const service = document.getElementById('fsvc').value;
+  const building = document.getElementById('fbt').value;
+  const message = document.getElementById('fmsg').value.trim();
+
+  let ok = true;
+
+  // Validation
+  if (name.length < 2) ok = false;
+  if (!/^[6-9]\d{9}$/.test(phone)) ok = false;
+  if (!service) ok = false;
+
+  if (!ok) {
+    showMsg('Please fill all required fields correctly.', 'no');
+    isSubmitting = false;
+    return;
+  }
+
+  const btn = document.getElementById('fsub');
+  const txt = document.getElementById('fsubtxt');
+
+  btn.disabled = true;
+  txt.textContent = 'Sending...';
+
+  const formData = { name, phone, email, city, service, building, message };
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: { "Content-Type": "text/plain" }
+    });
+
+    const result = await res.json();
+
+    if (result.status === "success") {
+
+      this.reset();
+      localStorage.setItem('lastSent', Date.now());
+
+      const whatsappMsg =
+`Hello, I submitted an enquiry:
+
+Name: ${name}
+Phone: ${phone}
+Service: ${service}`;
+
+      const whatsappLink =
+`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMsg)}`;
+
+      showMsg(
+        `✓ Thank you, ${name}! Your enquiry is submitted successfully.`,
+        'ok',
+        whatsappLink
+      );
+
+    } else {
+      showMsg('❌ Failed to send. Try again.', 'no');
+    }
+
+  } catch (err) {
+    showMsg('❌ Network error. Please try again.', 'no');
+  }
+
+  btn.disabled = false;
+  txt.textContent = 'Send Enquiry';
+  isSubmitting = false;
+});
+
+
+// ✅ Message + WhatsApp button
+function showMsg(msg, cls, whatsappLink = "") {
+  const el = document.getElementById('fmsgbox');
+
+  el.innerHTML = msg;
+
+  if (whatsappLink) {
+    el.innerHTML += `
+      <br><br>
+      <a href="${whatsappLink}" target="_blank"
+         style="display:inline-block;padding:10px 15px;background:#25D366;color:#fff;border-radius:5px;text-decoration:none;">
+         Continue on WhatsApp →
+      </a>
+    `;
+  }
+
+  el.className = 'fmsg ' + cls;
+  el.style.display = 'block';
+
+  setTimeout(() => el.style.display = 'none', 10000);
+}
 /* ── COOKIE ── */
 function closeCookie(){document.getElementById('cookie').style.transform='translateY(101%)';localStorage.setItem('be_ck','1');}
 if(!localStorage.getItem('be_ck'))setTimeout(()=>document.getElementById('cookie').classList.add('show'),2500);
