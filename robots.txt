@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://binduelevators.vercel.app/sitemap.xml
