@@ -32,6 +32,9 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
+/* ── TESTIMONIALS CHECK ── */
+(()=>{const container=document.getElementById('tstgContainer'),empty=document.getElementById('tstEmpty');if(container){const cards=container.querySelectorAll('.tstc');if(cards.length===0&&empty){container.style.display='none';empty.style.display='flex';}}})();
+
 /* ── MOBILE MENU ── */
 const bg=document.getElementById('burger'),mb=document.getElementById('mob');
 function cm(){bg.classList.remove('o');mb.classList.remove('o');bg.setAttribute('aria-expanded','false');document.body.style.overflow='';}

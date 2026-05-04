@@ -72,7 +72,7 @@
       <li><a href="#process">Process</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#contact" class="ncta">Get Quote</a></li>
+      <li><a href="#getquote" class="ncta">Get Quote</a></li>
     </ul>
     <button class="nbg" id="burger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -88,7 +88,7 @@
   <a href="#process"  onclick="cm()">Process</a>
   <a href="#gallery"  onclick="cm()">Gallery</a>
   <a href="#faq"      onclick="cm()">FAQ</a>
-  <a href="#contact"  onclick="cm()" class="nmcta">Get Quote</a>
+  <a href="#getquote"  onclick="cm()" class="nmcta">Get Quote</a>
 </nav>
 
 <!-- HERO -->
@@ -432,11 +432,9 @@ We do not manufacture elevator components. We use quality parts sourced from tru
 <section id="testimonials" class="sec secb">
   <div class="si">
     <div class="rv"><div class="stag"><div class="stl"></div><span>Client Stories</span></div><h2 class="stitle">What Our <strong>Clients Say</strong></h2></div>
-    <div class="tstg">
-      <div class="tstc rv"><div class="tstq">"</div><p class="tstt">Bindu Elevators transformed our apartment complex with a stunning glass elevator. The installation was flawless and the team was professional throughout the entire project. Highly recommended!</p><div class="tsta"><div class="tav">RK</div><div><div class="tst">★★★★★</div><div class="tan">Rajesh Kumar</div><div class="tar">Builder & Developer, Vijayawada</div></div></div></div>
-      <div class="tstc rv"><div class="tstq">"</div><p class="tstt">We've been on AMC with Bindu Elevators for 3 years now. Their response time is incredible — any issue gets resolved within hours. The 24/7 support is genuinely available every single time!</p><div class="tsta"><div class="tav">SP</div><div><div class="tst">★★★★★</div><div class="tan">Sunitha Prasad</div><div class="tar">Facility Manager, Hyderabad</div></div></div></div>
-      <div class="tstc rv"><div class="tstq">"</div><p class="tstt">The home lift installed in our villa is absolutely beautiful. The stainless steel and glass cabin exceeded our expectations. The team listened to every detail. Worth every rupee invested!</p><div class="tsta"><div class="tav">MR</div><div><div class="tst">★★★★★</div><div class="tan">Mohan Reddy</div><div class="tar">Homeowner, Nellore</div></div></div></div>
+    <div class="tstg" id="tstgContainer">
     </div>
+    <div class="tst-empty" id="tstEmpty" style="display:none;"><div><i class="fas fa-comment-dots"></i><p>No feedback or comments yet!</p></div></div>
   </div>
 </section>
 
@@ -451,6 +449,8 @@ We do not manufacture elevator components. We use quality parts sourced from tru
       <div class="gli" onclick="openLb(3)" tabindex="0" role="button" aria-label="View Shopping Mall project"><div class="glbg" style="background:linear-gradient(135deg,#1a1000,#111)"></div><div class="glov"></div><i class="fas fa-shopping-bag glico"></i><div class="glcap"><h4>Shopping Mall — Tirupati</h4><p>Panoramic glass elevator</p></div></div>
       <div class="gli" onclick="openLb(4)" tabindex="0" role="button" aria-label="View Warehouse project"><div class="glbg" style="background:linear-gradient(135deg,#111,#1a1208)"></div><div class="glov"></div><i class="fas fa-industry glico"></i><div class="glcap"><h4>Warehouse Freight Lift — Ongole</h4><p>2-tonne industrial elevator</p></div></div>
     </div>
+<div style="text-align:center;margin-top:3rem;"><a href="gallery.html" class="btn bo"><span>See More</span></a></div>
+
   </div>
 </section>
 
@@ -474,11 +474,9 @@ We do not manufacture elevator components. We use quality parts sourced from tru
     <div class="fql rv">
       <div class="fqi"><button class="fqq" onclick="tFaq(this)"><span>How long does a standard elevator installation take?</span><i class="fas fa-plus fqico"></i></button><div class="fqa"><div class="fqai">A standard passenger elevator installation typically takes 4–8 weeks from site clearance, depending on floors and complexity. Home lifts can be done in 2–3 weeks. We provide a detailed project timeline before work begins.</div></div></div>
       <div class="fqi"><button class="fqq" onclick="tFaq(this)"><span>What is included in the Annual Maintenance Contract (AMC)?</span><i class="fas fa-plus fqico"></i></button><div class="fqa"><div class="fqai">Our AMC covers 8 preventive maintenance visits/year (2/quarter), 24/7 emergency support, lubrication of all moving parts, safety device testing, and minor adjustments. Major component replacements are billed separately with prior approval.</div></div></div>
-      <div class="fqi"><button class="fqq" onclick="tFaq(this)"><span>What safety certifications do your elevators carry?</span><i class="fas fa-plus fqico"></i></button><div class="fqa"><div class="fqai">All elevators comply with IS:14665 (Indian Standards for lifts), National Building Code 2016, and CE marking requirements. We also assist with mandatory government inspection certificates from the state electrical inspectorate.</div></div></div>
       <div class="fqi"><button class="fqq" onclick="tFaq(this)"><span>Do you service elevators installed by other companies?</span><i class="fas fa-plus fqico"></i></button><div class="fqa"><div class="fqai">Yes. We maintain and repair elevators from OTIS, Schindler, Kone, ThyssenKrupp, and local manufacturers. Our engineers are trained across multiple brands and control systems.</div></div></div>
       <div class="fqi"><button class="fqq" onclick="tFaq(this)"><span>What is the minimum pit depth required for a home lift?</span><i class="fas fa-plus fqico"></i></button><div class="fqa"><div class="fqai">Our low-pit home lift solutions require a minimum pit depth of just 150mm (6 inches), making them ideal for retrofitting in existing homes. Standard installations require 450–600mm. We assess your site during the free consultation.</div></div></div>
       <div class="fqi"><button class="fqq" onclick="tFaq(this)"><span>What warranty do you provide on new elevators?</span><i class="fas fa-plus fqico"></i></button><div class="fqa"><div class="fqai">1-year comprehensive warranty on all new installations (parts & labour). Motor and traction machine carry a 3-year warranty. Control panels are warranted for 2 years. Extended warranty packages available via AMC agreements.</div></div></div>
-      <div class="fqi"><button class="fqq" onclick="tFaq(this)"><span>Do you offer financing or EMI options?</span><i class="fas fa-plus fqico"></i></button><div class="fqa"><div class="fqai">Yes. We have tie-ups with leading NBFCs and banks. Down payments from 20% and repayment periods from 12–60 months. Our sales team can assist in choosing the right financing plan for your requirements.</div></div></div>
     </div>
     <div style="text-align:center;margin-top:2.5rem;">
       <p style="font-size:.88rem;color:var(--grey);margin-bottom:1rem;">Still have questions? We'd love to help.</p>
@@ -519,12 +517,12 @@ We do not manufacture elevator components. We use quality parts sourced from tru
         <div class="cd"><div class="cdi"><i class="fas fa-envelope"></i></div><div><div class="cdl">Email</div><div class="cdv"><a href="mailto:bindhuelevators@gmail.com">bindhuelevators@gmail.com</a></div></div></div>
         <div class="cd"><div class="cdi"><i class="fas fa-clock"></i></div><div><div class="cdl">Working Hours</div><div class="cdv">Mon – Sat: 9:00 AM – 4:00 PM<br></div></div></div>
         <div class="slnks">
-          <a href="#" class="slnk" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="slnk" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://wa.me/918179492454" class="slnk" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a target="_blank" href="https://www.facebook.com/profile.php?id=61589284768970" class="slnk" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a target="_blank" href="https://www.instagram.com/binduelevatorsofficial/" class="slnk" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a target="_blank" href="https://wa.me/918179492454" class="slnk" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
-      <div id="getquote" class="cform rr">
+      <div class="cform rr" id="getquote">
   <h3 class="cft">Request a Free Quote </h3>
   <form id="cfrm" novalidate>
       <!-- Hidden honeypot field -->
@@ -614,9 +612,9 @@ We do not manufacture elevator components. We use quality parts sourced from tru
       </a>
       <p>Your trusted partner for premium elevator solutions across Andhra Pradesh. Quality, safety, and innovation in every lift we build.</p>
       <div class="slnks">
-        <a href="#" class="slnk" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="slnk" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/918179492454" class="slnk" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61589284768970" target="_blank" class="slnk" aria-label="Facebook" ><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/binduelevatorsofficial/" target="_blank" class="slnk" aria-label="Instagram" ><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/918179492454" target="_blank" class="slnk" aria-label="WhatsApp" ><i class="fab fa-whatsapp"></i></a>
       </div>
     </div>
     <div class="fc"><h4>Quick Links</h4><ul><li><a href="#about">About Us</a></li><li><a href="#services">Services</a></li><li><a href="#products">Products</a></li><li><a href="#process">Our Process</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul></div>
@@ -625,7 +623,7 @@ We do not manufacture elevator components. We use quality parts sourced from tru
   </div>
   <div class="fbot">
     <p>© 2026 <a href="#home">Bindu Elevators</a>. All rights reserved. | Tirupati, Andhra Pradesh</p>
-    <p>Developed by <a href="#home">Sethu</a></p>
+    <p>Developed by <a href="https://www.instagram.com/sethu.thangella/" target="_blank">Sethu</a></p>
   </div>
 </footer>
 <script src="script.js"></script>

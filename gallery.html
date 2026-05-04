@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Gallery — Bindu Elevators</title>
+<link rel="stylesheet" href="be-shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* FILTER BAR */
+.filter-bar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.fc2{padding:.4rem 1.1rem;border:1px solid rgba(201,168,76,.18);background:transparent;color:var(--grey);font-family:var(--fs);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all var(--tr);}
+.fc2:hover{border-color:rgba(201,168,76,.4);color:var(--white);}
+.fc2.on{background:var(--gold-dim);border-color:rgba(201,168,76,.35);color:var(--gold);}
+
+/* STATS ROW */
+.gstats{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.gs{background:var(--dark2);border:1px solid rgba(201,168,76,.08);padding:.9rem 1.4rem;display:flex;align-items:center;gap:.85rem;}
+.gs-ico{width:36px;height:36px;background:var(--gold-dim);border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.85rem;}
+.gs-num{font-family:var(--fh);font-size:1.4rem;color:var(--gold);line-height:1;}
+.gs-lbl{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-top:.15rem;}
+
+/* MASONRY GRID */
+.g-grid{columns:3;column-gap:1.5rem;margin-bottom:2.5rem;}
+@media(max-width:900px){.g-grid{columns:2;}}
+@media(max-width:500px){.g-grid{columns:1;}}
+
+.gi{break-inside:avoid;margin-bottom:1.5px;position:relative;overflow:hidden;cursor:pointer;border:1px solid rgba(201,168,76,.07);transition:border-color var(--tr);}
+.gi:hover{border-color:rgba(201,168,76,.3);}
+.gi.hidden{display:none;}
+.gi-img{width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.gi-img-inner{position:absolute;inset:0;transition:transform .6s ease;}
+.gi:hover .gi-img-inner{transform:scale(1.06);}
+.gi-ico{position:relative;z-index:1;transition:all var(--tr);}
+.gi:hover .gi-ico{transform:scale(1.08);}
+.gi-ov{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background var(--tr);z-index:2;}
+.gi:hover .gi-ov{background:rgba(0,0,0,.45);}
+.gi-ov-ico{color:#fff;font-size:1.6rem;opacity:0;transform:scale(.6);transition:all var(--tr);}
+.gi:hover .gi-ov-ico{opacity:1;transform:scale(1);}
+.gi-cap{background:var(--dark2);padding:1.1rem 1.25rem;}
+.gi-tag-row{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.5rem;}
+.gi-title{font-family:var(--fd);font-size:.95rem;font-weight:500;margin-bottom:.25rem;line-height:1.3;}
+.gi-sub{font-size:.76rem;color:var(--grey);line-height:1.55;}
+.gi-foot{display:flex;align-items:center;justify-content:space-between;margin-top:.65rem;padding-top:.65rem;border-top:1px solid rgba(201,168,76,.07);}
+.gi-foot span{font-size:.68rem;color:var(--grey);display:flex;align-items:center;gap:.3rem;}
+.gi-foot i{color:var(--gold);font-size:.62rem;}
+
+/* LIGHTBOX */
+.lb{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.94);align-items:center;justify-content:center;padding:1.5rem;}
+.lb.o{display:flex;}
+.lb-wrap{max-width:900px;width:100%;background:var(--dark2);border:1px solid rgba(201,168,76,.2);position:relative;animation:lbin .25s ease;}
+@keyframes lbin{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.lb-x{position:absolute;top:1rem;right:1rem;z-index:10;width:38px;height:38px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--grey);font-size:1rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;}
+.lb-x:hover{background:rgba(201,168,76,.2);color:var(--white);}
+.lb-nav{position:absolute;top:50%;z-index:10;width:40px;height:40px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.18);color:var(--grey);font-size:.9rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;transform:translateY(-50%);}
+.lb-nav:hover{background:var(--gold-dim);color:var(--gold);border-color:rgba(201,168,76,.4);}
+.lb-prev{left:1rem;}.lb-next{right:1rem;}
+.lb-media{width:100%;min-height:320px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.lb-info{padding:1.75rem 2rem;}
+.lb-tagrow{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;}
+.lb-title{font-family:var(--fd);font-size:1.6rem;font-weight:400;margin-bottom:.5rem;}
+.lb-title em{color:var(--gold);font-style:italic;}
+.lb-desc{font-size:.875rem;color:var(--grey);line-height:1.8;margin-bottom:1.25rem;}
+.lb-meta{display:flex;gap:1.5rem;flex-wrap:wrap;border-top:1px solid rgba(201,168,76,.1);padding-top:1.25rem;}
+.lb-mi{font-size:.78rem;color:var(--grey);display:flex;align-items:center;gap:.4rem;}
+.lb-mi i{color:var(--gold);}
+
+/* LOAD MORE */
+.lm-sec{text-align:center;padding:1.5rem 0;}
+.lm-sec p{font-size:.84rem;color:var(--grey);margin-bottom:1.25rem;}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="ld-logo">Bindu <b>Elevators</b></div><div class="ld-bar"><div class="ld-fill" id="ldf"></div></div><div class="ld-pct" id="ldp">0%</div></div>
+<button id="btt" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+<a id="wa" href="https://wa.me/918179492454?text=Hello%20Bindu%20Elevators%2C%20I%27m%20interested%20in%20your%20services." target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="ni">
+    <a href="index.html" class="nl"><div class="li"><i class="fas fa-building"></i></div><div><div class="lt">Bindu <span>Elevators</span></div><span class="ls">Elevating Your World</span></div></a>
+    <ul class="nls">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="gallery.html" class="act">Gallery</a></li>
+      <li><a href="rating.html">Reviews</a></li>
+      <li><a href="index.html#contact" class="ncta">Get Quote</a></li>
+    </ul>
+    <button class="nbg" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nm" id="mob">
+  <a href="index.html" onclick="cm()">Home</a>
+  <a href="index.html#services" onclick="cm()">Services</a>
+  <a href="index.html#products" onclick="cm()">Products</a>
+  <a href="gallery.html" onclick="cm()">Gallery</a>
+  <a href="rating.html" onclick="cm()">Reviews</a>
+  <a href="index.html#contact" onclick="cm()" class="nmcta">Get Quote</a>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="phbg"><div class="phgrad"></div><div class="phgrid"></div><div class="phvig"></div></div>
+  <div class="ph-inner">
+    <h1 class="ph-title">Project <em>Gallery</em></h1>
+    <p class="ph-sub">A showcase of our completed elevator installations across Andhra Pradesh and Telangana — each tailored to the unique needs of our clients.</p>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="mq" role="marquee" aria-label="Services offered">
+  <div class="mqt" id="mqt">
+    <div class="mqi">Passenger Elevators<div class="mdot"></div></div>
+    <div class="mqi">Home Lifts<div class="mdot"></div></div>
+    <div class="mqi">Freight Elevators<div class="mdot"></div></div>
+    <div class="mqi">Modernisation<div class="mdot"></div></div>
+    <div class="mqi">Maintenance & AMC<div class="mdot"></div></div>
+    <div class="mqi">Safety Audits<div class="mdot"></div></div>
+    <div class="mqi">Passenger Elevators<div class="mdot"></div></div>
+    <div class="mqi">Home Lifts<div class="mdot"></div></div>
+    <div class="mqi">Freight Elevators<div class="mdot"></div></div>
+    <div class="mqi">Modernisation<div class="mdot"></div></div>
+    <div class="mqi">Maintenance & AMC<div class="mdot"></div></div>
+    <div class="mqi">Safety Audits<div class="mdot"></div></div>
+    <div class="mqi">Passenger Elevators<div class="mdot"></div></div>
+    <div class="mqi">Home Lifts<div class="mdot"></div></div>
+    <div class="mqi">Freight Elevators<div class="mdot"></div></div>
+    <div class="mqi">Modernisation<div class="mdot"></div></div>
+    <div class="mqi">Maintenance & AMC<div class="mdot"></div></div>
+    <div class="mqi">Safety Audits<div class="mdot"></div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<section class="sec">
+  <div class="si">
+
+    <!-- STATS -->
+    <div class="gstats rv">
+      <div class="gs"><div class="gs-ico"><i class="fas fa-images"></i></div><div><div class="gs-num" id="totalCount">0</div><div class="gs-lbl">Total Projects</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-building"></i></div><div><div class="gs-num">8</div><div class="gs-lbl">Commercial</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-home"></i></div><div><div class="gs-num">5</div><div class="gs-lbl">Residential</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-hospital"></i></div><div><div class="gs-num">3</div><div class="gs-lbl">Healthcare</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-boxes"></i></div><div><div class="gs-num">4</div><div class="gs-lbl">Industrial</div></div></div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-bar rv">
+      <button class="fc2 on" onclick="filterGallery('all',this)">All Projects</button>
+      <button class="fc2" onclick="filterGallery('commercial',this)">Commercial</button>
+      <button class="fc2" onclick="filterGallery('residential',this)">Residential</button>
+      <button class="fc2" onclick="filterGallery('hospital',this)">Healthcare</button>
+      <button class="fc2" onclick="filterGallery('industrial',this)">Industrial</button>
+      <button class="fc2" onclick="filterGallery('panoramic',this)">Panoramic</button>
+    </div>
+
+    <!-- GRID -->
+    <div class="g-grid rv" id="gGrid"></div>
+
+    <!-- LOAD MORE -->
+    <div class="lm-sec rv" id="lmSec">
+      <p>Showing <strong id="shownCount" style="color:var(--gold)">0</strong> of <strong id="allCount" style="color:var(--gold)">0</strong> projects</p>
+      <button class="btn bg" onclick="loadMore()" id="lmBtn"><i class="fas fa-chevron-down"></i><span>See More Projects</span></button>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true">
+  <div class="lb-wrap">
+    <button class="lb-x" onclick="closeLb()"><i class="fas fa-times"></i></button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="lb-nav lb-next" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+    <div class="lb-media" id="lbMedia"></div>
+    <div class="lb-info">
+      <div class="lb-tagrow" id="lbTags"></div>
+      <h3 class="lb-title" id="lbTitle"></h3>
+      <p class="lb-desc" id="lbDesc"></p>
+      <div class="lb-meta" id="lbMeta"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftop">
+    <div class="fb">
+      <a href="#home" class="nl" style="margin-bottom:.5rem;display:inline-flex;">
+        <div class="li"><i class="fas fa-building"></i></div>
+        <div><div class="lt">Bindu <span>Elevators</span></div><span class="ls">Elevating Your World</span></div>
+      </a>
+      <p>Your trusted partner for premium elevator solutions across Andhra Pradesh. Quality, safety, and innovation in every lift we build.</p>
+      <div class="slnks">
+        <a target="_blank" href="https://www.facebook.com/profile.php?id=61589284768970" class="slnk" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a target="_blank" href="https://www.instagram.com/binduelevatorsofficial/" class="slnk" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a target="_blank" href="https://wa.me/918179492454" class="slnk" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="fc"><h4>Quick Links</h4><ul><li><a href="#about">About Us</a></li><li><a href="#services">Services</a></li><li><a href="#products">Products</a></li><li><a href="#process">Our Process</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="fc"><h4>Services</h4><ul><li><a href="#services">New Installation</a></li><li><a href="#services">Maintenance</a></li><li><a href="#services">Modernisation</a></li><li><a href="#services">Repairs</a></li><li><a href="#services">Inspection</a></li><li><a href="#services">Custom Design</a></li></ul></div>
+    <div class="fc"><h4>Contact</h4><ul><li><a href="tel:+919876543210">+91 8179492454</a></li><li><a href="mailto:bindhuelevators@gmail.com">bindhuelevators@gmail.com</a></li><li><a href="#area">Service Areas</a></li><li><a href="#products">Passenger Elevators</a></li><li><a href="#products">Home Lifts</a></li><li><a href="#products">Freight Elevators</a></li></ul></div>
+  </div>
+  <div class="fbot">
+    <p>© 2026 <a href="#home">Bindu Elevators</a>. All rights reserved. | Tirupati, Andhra Pradesh</p>
+    <p>Developed by <a target="_blank" href="https://www.instagram.com/sethu.thangella/">Sethu</a></p>
+  </div>
+</footer>
+
+<script>
+(()=>{let p=0;const f=document.getElementById('ldf'),t=document.getElementById('ldp'),l=document.getElementById('loader');const iv=setInterval(()=>{p+=Math.random()*14+4;if(p>=100){p=100;clearInterval(iv);setTimeout(()=>l.classList.add('out'),350);}f.style.width=p+'%';t.textContent=Math.floor(p)+'%';},70);})();
+const nav=document.getElementById('nav'),btt=document.getElementById('btt'),wa=document.getElementById('wa');
+window.addEventListener('scroll',()=>{nav.classList.toggle('solid',scrollY>60);btt.classList.toggle('show',scrollY>400);wa.classList.toggle('show',scrollY>300);},{passive:true});
+btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+const burger=document.getElementById('burger'),mob=document.getElementById('mob');
+function cm(){burger.classList.remove('o');mob.classList.remove('o');document.body.style.overflow='';}
+burger.addEventListener('click',()=>{const o=!mob.classList.contains('o');burger.classList.toggle('o',o);mob.classList.toggle('o',o);document.body.style.overflow=o?'hidden':'';});
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target);}}),{threshold:.08});
+document.querySelectorAll('.rv,.rl,.rr').forEach(el=>ro.observe(el));
+
+/* GALLERY DATA */
+const items=[
+  {cat:'commercial',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:280,title:'Commercial Tower — <em>Vijayawada</em>',desc:'8-passenger MRL elevator installed in a 20-floor commercial office tower. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',tags:['Commercial','MRL Elevator','Vijayawada'],year:'2024',floors:'20 Floors',capacity:'8 Passengers',speed:'1.5 m/s'},
+  {cat:'residential',icon:'fa-home',bg:'linear-gradient(135deg,#111,#1a1208)',h:240,title:'Luxury Villa Lift — <em>Nellore</em>',desc:'Custom 4-floor home lift with panoramic glass cabin, solid oak flooring, LED ambient lighting, and frameless glass shaft. Designed meticulously to complement the villa\'s premium interior aesthetic.',tags:['Residential','Home Lift','Glass Cabin'],year:'2024',floors:'4 Floors',capacity:'4 Persons',speed:'0.6 m/s'},
+  {cat:'hospital',icon:'fa-hospital',bg:'linear-gradient(135deg,#0d0d0d,#1a1208)',h:260,title:'Hospital Elevator — <em>Guntur</em>',desc:'Stretcher-compatible hospital elevator for a 6-floor multi-specialty hospital. Features anti-microbial handrails, emergency lighting, priority landing, and dedicated stretcher-access door width of 1100mm.',tags:['Healthcare','Stretcher Lift','Guntur'],year:'2024',floors:'6 Floors',capacity:'Stretcher + 3',speed:'1.0 m/s'},
+  {cat:'panoramic',icon:'fa-store',bg:'linear-gradient(135deg,#1a1000,#111)',h:250,title:'Shopping Mall Panoramic — <em>Tirupati</em>',desc:'Stunning panoramic glass elevator installed in a 4-floor shopping mall. Features curved glass panels on three sides, LED collar lighting at each floor, and smooth 1.5 m/s operation for an impressive visual centrepiece.',tags:['Panoramic','Commercial','Tirupati'],year:'2023',floors:'4 Floors',capacity:'13 Persons',speed:'1.5 m/s'},
+  {cat:'industrial',icon:'fa-industry',bg:'linear-gradient(135deg,#111,#1a1208)',h:230,title:'Warehouse Freight Lift — <em>Ongole</em>',desc:'Heavy-duty 2-tonne industrial freight elevator for a 3-floor warehouse. Bi-parting automatic doors, anti-skid aluminium flooring, overload protection, and forklift-compatible cabin dimensions.',tags:['Industrial','Freight','Ongole'],year:'2024',floors:'3 Floors',capacity:'2000 kg',speed:'0.5 m/s'},
+  {cat:'residential',icon:'fa-home',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:220,title:'Apartment Complex — <em>Kurnool</em>',desc:'Twin passenger elevators for a 15-floor residential apartment complex. High-efficiency gearless traction system, destination control, and mirror-finish stainless steel cabin interiors.',tags:['Residential','Apartment','Kurnool'],year:'2023',floors:'15 Floors',capacity:'13 Persons',speed:'2.0 m/s'},
+  {cat:'commercial',icon:'fa-hotel',bg:'linear-gradient(135deg,#0d0d0d,#1a1000)',h:255,title:'Boutique Hotel — <em>Kadapa</em>',desc:'Luxury elevator for a boutique hotel with custom wood-veneer cabin interior, gold-finish hardware, recessed LED lighting, and Bluetooth-enabled destination display. Matches the hotel\'s heritage design language.',tags:['Commercial','Hotel','Custom Design'],year:'2024',floors:'6 Floors',capacity:'8 Persons',speed:'1.0 m/s'},
+  {cat:'hospital',icon:'fa-clinic-medical',bg:'linear-gradient(135deg,#111,#1a1208)',h:240,title:'Nursing Home Lift — <em>Nellore</em>',desc:'Compact MRL elevator for a 4-floor nursing home. Easy-access wide doors, handrail on three walls, emergency phone, and backup power. Designed for patient safety and easy wheelchair / gurney access.',tags:['Healthcare','MRL','Accessibility'],year:'2023',floors:'4 Floors',capacity:'8 Persons',speed:'1.0 m/s'},
+  {cat:'commercial',icon:'fa-university',bg:'linear-gradient(135deg,#1a1208,#111)',h:245,title:'College Administrative Block — <em>Chittoor</em>',desc:'Two passenger elevators for a 5-floor college administrative building. Designed for high-traffic operation with 180-second door-open hold, stainless steel cabin, and energy-saving standby mode.',tags:['Commercial','Education','Chittoor'],year:'2024',floors:'5 Floors',capacity:'13 Persons',speed:'1.0 m/s'},
+  {cat:'industrial',icon:'fa-boxes',bg:'linear-gradient(135deg,#0d0d0d,#1a1208)',h:230,title:'Factory Service Lift — <em>Anantapur</em>',desc:'1-tonne service elevator for a textile factory with 4 floors. Features industrial-grade cabin, automatic bi-parting doors, and remote monitoring capability for 24/7 production environment.',tags:['Industrial','Service Lift','Anantapur'],year:'2023',floors:'4 Floors',capacity:'1000 kg',speed:'0.5 m/s'},
+  {cat:'panoramic',icon:'fa-building',bg:'linear-gradient(135deg,#1a1000,#0d0d0d)',h:265,title:'IT Park Glass Elevator — <em>Visakhapatnam</em>',desc:'Premium panoramic elevator in a 10-floor IT park atrium. Full-height glass shaft, energy-efficient regenerative drive that feeds power back to the grid, and smart destination dispatch system.',tags:['Panoramic','Commercial','Visakhapatnam'],year:'2024',floors:'10 Floors',capacity:'13 Persons',speed:'2.0 m/s'},
+  {cat:'residential',icon:'fa-home',bg:'linear-gradient(135deg,#1a1208,#111)',h:235,title:'Independent Villa — <em>Kadapa</em>',desc:'Minimalist 3-floor home lift for a modern independent villa. Compact shaft footprint (900×900mm), half-glass cabin door, and whisper-quiet operation ideal for residential environments.',tags:['Residential','Home Lift','Minimalist'],year:'2024',floors:'3 Floors',capacity:'3 Persons',speed:'0.4 m/s'},
+  {cat:'hospital',icon:'fa-ambulance',bg:'linear-gradient(135deg,#111,#1a1208)',h:250,title:'Dialysis Centre — <em>Rajahmundry</em>',desc:'Dedicated patient elevator for a 3-floor dialysis centre. Wide 1100mm doors, smooth ride for patient comfort, independent power supply, and emergency communication system installed.',tags:['Healthcare','Patient Lift','Rajahmundry'],year:'2023',floors:'3 Floors',capacity:'Wheelchair + Attendant',speed:'0.6 m/s'},
+  {cat:'industrial',icon:'fa-utensils',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:220,title:'Restaurant Dumbwaiter — <em>Hyderabad</em>',desc:'150kg food service dumbwaiter for a 4-floor restaurant chain. Silent operation, auto-call system, stainless steel interior for hygiene, and soft-stop mechanism for safe food transport.',tags:['Industrial','Dumbwaiter','Food Service'],year:'2024',floors:'4 Floors',capacity:'150 kg',speed:'0.4 m/s'},
+  {cat:'commercial',icon:'fa-shopping-bag',bg:'linear-gradient(135deg,#0d0d0d,#1a1000)',h:260,title:'Retail Complex — <em>Kakinada</em>',desc:'Three passenger elevators installed across a 6-floor retail complex. Coordinated destination control, branded cabin interiors matching retail theme, and energy-efficient gearless traction drive.',tags:['Commercial','Retail','Kakinada'],year:'2024',floors:'6 Floors',capacity:'3×13 Persons',speed:'1.5 m/s'},
+  {cat:'residential',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:240,title:'Luxury Apartments — <em>Vijayawada</em>',desc:'Signature elevator for a luxury high-rise with 18 floors. VIP destination control, marble-effect cabin floor, designer ceiling with chandelier lighting, and silent gearless machine.',tags:['Residential','Luxury','Vijayawada'],year:'2023',floors:'18 Floors',capacity:'10 Persons',speed:'2.5 m/s'},
+  {cat:'panoramic',icon:'fa-star',bg:'linear-gradient(135deg,#111,#1a1000)',h:250,title:'Office Lobby Panoramic — <em>Nellore</em>',desc:'Statement panoramic elevator for a corporate HQ lobby. Three-sided glass panoramic view, internal LED strip lighting on all four walls, and destination dispatch for peak-hour efficiency.',tags:['Panoramic','Corporate','Nellore'],year:'2024',floors:'8 Floors',capacity:'10 Persons',speed:'1.5 m/s'},
+  {cat:'industrial',icon:'fa-warehouse',bg:'linear-gradient(135deg,#1a1208,#111)',h:235,title:'Cold Storage Freight Lift — <em>Ongole</em>',desc:'Specialised freight elevator designed for cold storage application with stainless steel interior, temperature-resistant components, sealed motor enclosure, and heavy-duty capacity.',tags:['Industrial','Cold Storage','Specialised'],year:'2023',floors:'3 Floors',capacity:'3000 kg',speed:'0.4 m/s'},
+  {cat:'commercial',icon:'fa-hospital-alt',bg:'linear-gradient(135deg,#0d0d0d,#1a1208)',h:255,title:'Corporate Office — <em>Kurnool</em>',desc:'Twin 10-passenger MRL elevators in a 12-floor corporate office. Integrated access control on cabin panel, CCTV inside cabin, destination dispatch, and remote monitoring via smartphone app.',tags:['Commercial','Smart Elevator','Kurnool'],year:'2024',floors:'12 Floors',capacity:'2×10 Persons',speed:'1.75 m/s'},
+  {cat:'residential',icon:'fa-city',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:245,title:'Gated Community — <em>Tirupati</em>',desc:'Four elevators across two 20-floor residential towers in a premium gated community. Parallel group control, stainless steel finish, destination dispatch and 24/7 AMC included in project scope.',tags:['Residential','Group Control','Tirupati'],year:'2023',floors:'20 Floors',capacity:'4×13 Persons',speed:'2.0 m/s'},
+];
+
+let showing=9, filterCat='all', filtered=[];
+function getFiltered(){return filterCat==='all'?items:items.filter(i=>i.cat===filterCat);}
+function renderGallery(){
+  filtered=getFiltered();
+  const toShow=filtered.slice(0,showing);
+  document.getElementById('gGrid').innerHTML=toShow.map((item,idx)=>`
+    <div class="gi" onclick="openLb(${idx})" tabindex="0" role="button" aria-label="View ${item.title.replace(/<[^>]+>/g,'')}">
+      <div class="gi-img" style="height:${item.h}px;">
+        <div class="gi-img-inner" style="background:${item.bg};inset:0;position:absolute;"></div>
+        <div class="gi-ov"><i class="fas fa-expand-alt gi-ov-ico"></i></div>
+        <i class="fas ${item.icon} gi-ico" style="font-size:3rem;color:rgba(201,168,76,.22);position:relative;z-index:1;"></i>
+      </div>
+      <div class="gi-cap">
+        <div class="gi-tag-row">${item.tags.map(t=>`<span class="tag t-gold">${t}</span>`).join('')}</div>
+        <div class="gi-title">${item.title}</div>
+        <div class="gi-sub">${item.desc.substring(0,90)}…</div>
+        <div class="gi-foot">
+          <span><i class="fas fa-calendar"></i>${item.year}</span>
+          <span><i class="fas fa-layer-group"></i>${item.floors}</span>
+          <span><i class="fas fa-users"></i>${item.capacity}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('shownCount').textContent=toShow.length;
+  document.getElementById('allCount').textContent=filtered.length;
+  document.getElementById('totalCount').textContent=items.length;
+  document.getElementById('lmBtn').style.display=showing>=filtered.length?'none':'inline-flex';
+}
+function filterGallery(cat,btn){filterCat=cat;showing=9;document.querySelectorAll('.fc2').forEach(c=>c.classList.remove('on'));btn.classList.add('on');renderGallery();}
+function loadMore(){showing+=6;renderGallery();}
+
+/* LIGHTBOX */
+let lbIdx=0;
+function openLb(idx){
+  lbIdx=idx;const item=filtered[idx];
+  document.getElementById('lbMedia').innerHTML=`<i class="fas ${item.icon}" style="font-size:5rem;color:rgba(201,168,76,.3);position:relative;z-index:1;"></i><div style="position:absolute;inset:0;background:${item.bg};"></div>`;
+  document.getElementById('lbTags').innerHTML=item.tags.map(t=>`<span class="tag t-gold">${t}</span>`).join('');
+  document.getElementById('lbTitle').innerHTML=item.title;
+  document.getElementById('lbDesc').textContent=item.desc;
+  document.getElementById('lbMeta').innerHTML=`
+    <span class="lb-mi"><i class="fas fa-calendar"></i>${item.year}</span>
+    <span class="lb-mi"><i class="fas fa-layer-group"></i>${item.floors}</span>
+    <span class="lb-mi"><i class="fas fa-users"></i>${item.capacity}</span>
+    <span class="lb-mi"><i class="fas fa-tachometer-alt"></i>${item.speed}</span>
+    <span class="lb-mi"><i class="fas fa-map-marker-alt"></i>${item.tags[item.tags.length-1]}</span>
+  `;
+  document.getElementById('lb').classList.add('o');
+  document.body.style.overflow='hidden';
+}
+function closeLb(){document.getElementById('lb').classList.remove('o');document.body.style.overflow='';}
+function lbNav(d){lbIdx=(lbIdx+d+filtered.length)%filtered.length;openLb(lbIdx);}
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===document.getElementById('lb'))closeLb();});
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('lb').classList.contains('o')){
+    if(e.key==='Escape')closeLb();
+    if(e.key==='ArrowLeft')lbNav(-1);
+    if(e.key==='ArrowRight')lbNav(1);
+  }
+});
+document.querySelectorAll('.gi').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')el.click();}));
+renderGallery();
+</script>
+</body>
+</html>
