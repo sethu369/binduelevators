@@ -52,7 +52,7 @@ img { max-width:100%; display:block; }
 #nav { position:fixed; top:0; left:0; right:0; z-index:900; height:var(--nav-h); display:flex; align-items:center; padding:0 clamp(1.25rem,5vw,4rem); transition:background .4s,height .4s,border-color .4s; }
 #nav.solid { background:rgba(10,10,10,.96); backdrop-filter:blur(18px); border-bottom:1px solid rgba(201,168,76,.15); height:68px; }
 .ni { width:100%; display:flex; align-items:center; justify-content:space-between; }
-.nl { display:flex; align-items:center; gap:.1rem; }
+.nl { display:flex; align-items:center; gap:.9rem; }
 .lt { font-family:var(--fd); font-size:1.3rem; font-weight:500; letter-spacing:.08em; line-height:1.1; }
 .lt span { color:var(--gold); }
 .ls { font-size:.55rem; letter-spacing:.35em; color:var(--grey); text-transform:uppercase; display:block; margin-top:2px; }
