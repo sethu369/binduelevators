@@ -26,7 +26,7 @@
 @media(max-width:900px){.g-grid{columns:2;}}
 @media(max-width:500px){.g-grid{columns:1;}}
 
-.gi{break-inside:avoid;margin-bottom:1.5px;position:relative;overflow:hidden;cursor:pointer;border:1px solid rgba(201,168,76,.07);transition:border-color var(--tr);}
+.gi{break-inside:avoid;margin-bottom:10px;position:relative;overflow:hidden;cursor:pointer;border:1px solid rgba(201,168,76,.07);transition:border-color var(--tr);}
 .gi:hover{border-color:rgba(201,168,76,.3);}
 .gi.hidden{display:none;}
 .gi-img{width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
@@ -79,7 +79,7 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="ni"><a href="index.html" class="nl"><div class="li"><i ><img style="width: 50px; height: 50px;" src="media/binduelevatorslogo.png" alt="Bindu Elevators Logo"></i></div><div><div class="lt">Bindu <span>Elevators</span></div><span class="ls">Elevating Your World</span></div></a>
+  <div class="ni"><a href="index.html" class="nl"><div class="li"><i ><img style="width: 40px; height: 40px;" src="media/binduelevatorslogo.png" alt="Bindu Elevators Logo"></i></div><div><div class="lt">Bindu <span>Elevators</span></div><span class="ls">Elevating Your World</span></div></a>
     <ul class="nls">
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#services">Services</a></li>
@@ -140,24 +140,36 @@
     <!-- STATS -->
     <div class="gstats rv">
       <div class="gs"><div class="gs-ico"><i class="fas fa-images"></i></div><div><div class="gs-num" id="totalCount">0</div><div class="gs-lbl">Total Projects</div></div></div>
-      <div class="gs"><div class="gs-ico"><i class="fas fa-building"></i></div><div><div class="gs-num">8</div><div class="gs-lbl">Commercial</div></div></div>
-      <div class="gs"><div class="gs-ico"><i class="fas fa-home"></i></div><div><div class="gs-num">5</div><div class="gs-lbl">Residential</div></div></div>
-      <div class="gs"><div class="gs-ico"><i class="fas fa-hospital"></i></div><div><div class="gs-num">3</div><div class="gs-lbl">Healthcare</div></div></div>
-      <div class="gs"><div class="gs-ico"><i class="fas fa-boxes"></i></div><div><div class="gs-num">4</div><div class="gs-lbl">Industrial</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-building"></i></div><div><div class="gs-num" id="commercialCount">0</div><div class="gs-lbl">Commercial projects</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-home"></i></div><div><div class="gs-num" id="residentialCount">0</div><div class="gs-lbl">Residential Apartments</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-boxes"></i></div><div><div class="gs-num" id="industrialCount">0</div><div class="gs-lbl">Home Lifts</div></div></div>
     </div>
 
     <!-- FILTERS -->
     <div class="filter-bar rv">
       <button class="fc2 on" onclick="filterGallery('all',this)">All Projects</button>
-      <button class="fc2" onclick="filterGallery('commercial',this)">Commercial</button>
       <button class="fc2" onclick="filterGallery('residential',this)">Residential</button>
-      <button class="fc2" onclick="filterGallery('hospital',this)">Healthcare</button>
-      <button class="fc2" onclick="filterGallery('industrial',this)">Industrial</button>
-      <button class="fc2" onclick="filterGallery('panoramic',this)">Panoramic</button>
+      <button class="fc2" onclick="filterGallery('home-lifts',this)">Home-lifts</button>
+      <button class="fc2" onclick="filterGallery('commercial',this)">Commercial</button>
     </div>
 
     <!-- GRID -->
     <div class="g-grid rv" id="gGrid"></div>
+
+      <!--Coming Soon-->
+  <div style="text-align:center;padding:3rem 1rem;">
+  <div style="font-size:2rem;color:#C9A84C;margin-bottom:.5rem;">
+    <i class="fas fa-tools"></i>
+  </div>
+  <h3 style="font-size:1.4rem;color:#fff;margin-bottom:.5rem;">
+    Coming Soon
+  </h3>
+  <p style="color:#999;font-size:.9rem;max-width:500px;margin:auto;line-height:1.7;">
+    We're currently working on this section to bring you more detailed information and updates.
+  </p>
+</div>
+<!--Coming Soon-->
+
 
     <!-- LOAD MORE -->
     <div class="lm-sec rv" id="lmSec">
@@ -219,8 +231,9 @@ burger.addEventListener('click',()=>{const o=!mob.classList.contains('o');burger
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target);}}),{threshold:.08});
 document.querySelectorAll('.rv,.rl,.rr').forEach(el=>ro.observe(el));
 
-/* GALLERY DATA */
+/* GALLERY DATA 
 const items=[
+ 
   {cat:'commercial',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:280,title:'Commercial Tower — <em>Vijayawada</em>',desc:'8-passenger MRL elevator installed in a 20-floor commercial office tower. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',tags:['Commercial','MRL Elevator','Vijayawada'],year:'2024',floors:'20 Floors',capacity:'8 Passengers',speed:'1.5 m/s'},
   {cat:'residential',icon:'fa-home',bg:'linear-gradient(135deg,#111,#1a1208)',h:240,title:'Luxury Villa Lift — <em>Nellore</em>',desc:'Custom 4-floor home lift with panoramic glass cabin, solid oak flooring, LED ambient lighting, and frameless glass shaft. Designed meticulously to complement the villa\'s premium interior aesthetic.',tags:['Residential','Home Lift','Glass Cabin'],year:'2024',floors:'4 Floors',capacity:'4 Persons',speed:'0.6 m/s'},
   {cat:'hospital',icon:'fa-hospital',bg:'linear-gradient(135deg,#0d0d0d,#1a1208)',h:260,title:'Hospital Elevator — <em>Guntur</em>',desc:'Stretcher-compatible hospital elevator for a 6-floor multi-specialty hospital. Features anti-microbial handrails, emergency lighting, priority landing, and dedicated stretcher-access door width of 1100mm.',tags:['Healthcare','Stretcher Lift','Guntur'],year:'2024',floors:'6 Floors',capacity:'Stretcher + 3',speed:'1.0 m/s'},
@@ -241,8 +254,9 @@ const items=[
   {cat:'industrial',icon:'fa-warehouse',bg:'linear-gradient(135deg,#1a1208,#111)',h:235,title:'Cold Storage Freight Lift — <em>Ongole</em>',desc:'Specialised freight elevator designed for cold storage application with stainless steel interior, temperature-resistant components, sealed motor enclosure, and heavy-duty capacity.',tags:['Industrial','Cold Storage','Specialised'],year:'2023',floors:'3 Floors',capacity:'3000 kg',speed:'0.4 m/s'},
   {cat:'commercial',icon:'fa-hospital-alt',bg:'linear-gradient(135deg,#0d0d0d,#1a1208)',h:255,title:'Corporate Office — <em>Kurnool</em>',desc:'Twin 10-passenger MRL elevators in a 12-floor corporate office. Integrated access control on cabin panel, CCTV inside cabin, destination dispatch, and remote monitoring via smartphone app.',tags:['Commercial','Smart Elevator','Kurnool'],year:'2024',floors:'12 Floors',capacity:'2×10 Persons',speed:'1.75 m/s'},
   {cat:'residential',icon:'fa-city',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:245,title:'Gated Community — <em>Tirupati</em>',desc:'Four elevators across two 20-floor residential towers in a premium gated community. Parallel group control, stainless steel finish, destination dispatch and 24/7 AMC included in project scope.',tags:['Residential','Group Control','Tirupati'],year:'2023',floors:'20 Floors',capacity:'4×13 Persons',speed:'2.0 m/s'},
-];
 
+];
+*/
 let showing=9, filterCat='all', filtered=[];
 function getFiltered(){return filterCat==='all'?items:items.filter(i=>i.cat===filterCat);}
 function renderGallery(){
