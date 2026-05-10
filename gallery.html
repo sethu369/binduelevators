@@ -51,13 +51,29 @@
 .lb.o{display:flex;}
 .lb-wrap{max-width:900px;width:100%;background:var(--dark2);border:1px solid rgba(201,168,76,.2);position:relative;animation:lbin .25s ease;}
 @keyframes lbin{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.lb-wrap{max-height:calc(100vh - 7rem);overflow:auto;}
+.lb-media{height:min(55vh,560px);min-height:260px;}
+.lb-media-container{max-height:100%;}
+.lb-media img,.lb-media video{max-width:100%;max-height:100%;object-fit:contain;}
+.lb-info{padding:1.75rem 2rem;max-height:calc(100vh - 42vh);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(128, 128, 128, 0.475) transparent;}
+@media(max-width:900px){.lb-wrap{margin:0 1rem;}.lb-media{height:min(50vh,480px);}.lb-info{padding:1.2rem 1.2rem;}.lb-title{font-size:1.3rem;}.lb-meta{gap:1rem;}.lb-media-scroll{width:36px;height:36px;}.lb-x{width:34px;height:34px;}} 
+@media(max-width:600px){.lb-media{height:min(45vh,380px);}.lb-info{padding:1rem 1rem;}.lb-title{font-size:1.1rem;}.lb-desc{font-size:.82rem;}.lb-meta{flex-direction:column;gap:.75rem;}.lb-media-counter{top:auto;bottom:1rem;right:1rem;left:auto;}.lb-media-scroll.left{left:.5rem;}.lb-media-scroll.right{right:.5rem;}}
 .lb-x{position:absolute;top:1rem;right:1rem;z-index:10;width:38px;height:38px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--grey);font-size:1rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;}
-.lb-x:hover{background:rgba(201,168,76,.2);color:var(--white);}
+.lb-x:hover{background:rgba(247, 181, 0, 0.2);color:var(--white);}
 .lb-nav{position:absolute;top:50%;z-index:10;width:40px;height:40px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.18);color:var(--grey);font-size:.9rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;transform:translateY(-50%);}
 .lb-nav:hover{background:var(--gold-dim);color:var(--gold);border-color:rgba(201,168,76,.4);}
-.lb-prev{left:1rem;}.lb-next{right:1rem;}
-.lb-media{width:100%;min-height:320px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.lb-info{padding:1.75rem 2rem;}
+.lb-media{width:100%;height:400px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:rgba(0,0,0,.3);touch-action:auto;}
+.lb-media-container{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;touch-action:manipulation;}
+.lb-media img,.lb-media video{width:100%;height:100%;object-fit:contain;touch-action:manipulation;}
+.lb-media-scroll{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:45px;height:45px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:1.1rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;border-radius:.3rem;}
+.lb-media-scroll:hover{background:rgba(201,168,76,.25);border-color:var(--gold);}
+.lb-media-scroll.left{left:1rem;}
+.lb-media-scroll.right{right:1rem;}
+.lb-media-dots{position:absolute;bottom:1.25rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:5;}
+.lb-media-dot{width:10px;height:10px;border-radius:50%;background:rgba(201,168,76,.25);cursor:pointer;transition:all var(--tr);border:1px solid rgba(201,168,76,.4);}
+.lb-media-dot:hover{background:rgba(201,168,76,.4);}
+.lb-media-dot.active{background:var(--gold);width:14px;border-color:var(--gold);}
+.lb-media-counter{position:absolute;top:1rem;left:1rem;font-size:.85rem;color:var(--grey);padding:0.5rem 1rem;border-radius:.3rem;font-weight:600;letter-spacing:.05em;z-index: -1;}
 .lb-tagrow{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;}
 .lb-title{font-family:var(--fd);font-size:1.6rem;font-weight:400;margin-bottom:.5rem;}
 .lb-title em{color:var(--gold);font-style:italic;}
@@ -147,29 +163,14 @@
 
     <!-- FILTERS -->
     <div class="filter-bar rv">
-      <button class="fc2 on" onclick="filterGallery('all',this)">All Projects</button>
-      <button class="fc2" onclick="filterGallery('residential',this)">Residential</button>
-      <button class="fc2" onclick="filterGallery('home-lifts',this)">Home-lifts</button>
-      <button class="fc2" onclick="filterGallery('commercial',this)">Commercial</button>
+      <button class="fc2 on" data-cat="all" onclick="filterGallery('all',this)">All Projects</button>
+      <button class="fc2" data-cat="residential" onclick="filterGallery('residential',this)">Residential</button>
+      <button class="fc2" data-cat="home-lifts" onclick="filterGallery('home-lifts',this)">Home-lifts</button>
+      <button class="fc2" data-cat="commercial" onclick="filterGallery('commercial',this)">Commercial</button>
     </div>
 
     <!-- GRID -->
     <div class="g-grid rv" id="gGrid"></div>
-
-      <!--Coming Soon-->
-  <div style="text-align:center;padding:3rem 1rem;">
-  <div style="font-size:2rem;color:#C9A84C;margin-bottom:.5rem;">
-    <i class="fas fa-tools"></i>
-  </div>
-  <h3 style="font-size:1.4rem;color:#fff;margin-bottom:.5rem;">
-    Coming Soon
-  </h3>
-  <p style="color:#999;font-size:.9rem;max-width:500px;margin:auto;line-height:1.7;">
-    We're currently working on this section to bring you more detailed information and updates.
-  </p>
-</div>
-<!--Coming Soon-->
-
 
     <!-- LOAD MORE -->
     <div class="lm-sec rv" id="lmSec">
@@ -184,9 +185,13 @@
 <div class="lb" id="lb" role="dialog" aria-modal="true">
   <div class="lb-wrap">
     <button class="lb-x" onclick="closeLb()"><i class="fas fa-times"></i></button>
-    <button class="lb-nav lb-prev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
-    <button class="lb-nav lb-next" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
-    <div class="lb-media" id="lbMedia"></div>
+    <div class="lb-media" id="lbMedia">
+      <div class="lb-media-container" id="lbMediaContainer"></div>
+      <div class="lb-media-counter" id="lbMediaCounter"></div>
+      <button class="lb-media-scroll left" id="lbMediaPrev" onclick="switchMedia(lbMediaIdx-1)"><i class="fas fa-chevron-left"></i></button>
+      <button class="lb-media-scroll right" id="lbMediaNext" onclick="switchMedia(lbMediaIdx+1)"><i class="fas fa-chevron-right"></i></button>
+      <div class="lb-media-dots" id="lbMediaDots"></div>
+    </div>
     <div class="lb-info">
       <div class="lb-tagrow" id="lbTags"></div>
       <h3 class="lb-title" id="lbTitle"></h3>
@@ -206,7 +211,7 @@
       <p>Your trusted partner for premium elevator solutions across Andhra Pradesh. Quality, safety, and innovation in every lift we build.</p>
       <div class="slnks">
         <a target="_blank" href="https://www.facebook.com/profile.php?id=61589284768970" class="slnk" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a target="_blank" href="https://www.instagram.com/binduelevatorsofficial/" class="slnk" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a target="_blank" href="https://www.instagram.com/binduelevators/" class="slnk" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a target="_blank" href="https://wa.me/918179492454" class="slnk" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
       </div>
     </div>
@@ -231,69 +236,130 @@ burger.addEventListener('click',()=>{const o=!mob.classList.contains('o');burger
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target);}}),{threshold:.08});
 document.querySelectorAll('.rv,.rl,.rr').forEach(el=>ro.observe(el));
 
-/* GALLERY DATA 
+/* GALLERY DATA */
 const items=[
- 
-  {cat:'commercial',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:280,title:'Commercial Tower — <em>Vijayawada</em>',desc:'8-passenger MRL elevator installed in a 20-floor commercial office tower. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',tags:['Commercial','MRL Elevator','Vijayawada'],year:'2024',floors:'20 Floors',capacity:'8 Passengers',speed:'1.5 m/s'},
-  {cat:'residential',icon:'fa-home',bg:'linear-gradient(135deg,#111,#1a1208)',h:240,title:'Luxury Villa Lift — <em>Nellore</em>',desc:'Custom 4-floor home lift with panoramic glass cabin, solid oak flooring, LED ambient lighting, and frameless glass shaft. Designed meticulously to complement the villa\'s premium interior aesthetic.',tags:['Residential','Home Lift','Glass Cabin'],year:'2024',floors:'4 Floors',capacity:'4 Persons',speed:'0.6 m/s'},
-  {cat:'hospital',icon:'fa-hospital',bg:'linear-gradient(135deg,#0d0d0d,#1a1208)',h:260,title:'Hospital Elevator — <em>Guntur</em>',desc:'Stretcher-compatible hospital elevator for a 6-floor multi-specialty hospital. Features anti-microbial handrails, emergency lighting, priority landing, and dedicated stretcher-access door width of 1100mm.',tags:['Healthcare','Stretcher Lift','Guntur'],year:'2024',floors:'6 Floors',capacity:'Stretcher + 3',speed:'1.0 m/s'},
-  {cat:'panoramic',icon:'fa-store',bg:'linear-gradient(135deg,#1a1000,#111)',h:250,title:'Shopping Mall Panoramic — <em>Tirupati</em>',desc:'Stunning panoramic glass elevator installed in a 4-floor shopping mall. Features curved glass panels on three sides, LED collar lighting at each floor, and smooth 1.5 m/s operation for an impressive visual centrepiece.',tags:['Panoramic','Commercial','Tirupati'],year:'2023',floors:'4 Floors',capacity:'13 Persons',speed:'1.5 m/s'},
-  {cat:'industrial',icon:'fa-industry',bg:'linear-gradient(135deg,#111,#1a1208)',h:230,title:'Warehouse Freight Lift — <em>Ongole</em>',desc:'Heavy-duty 2-tonne industrial freight elevator for a 3-floor warehouse. Bi-parting automatic doors, anti-skid aluminium flooring, overload protection, and forklift-compatible cabin dimensions.',tags:['Industrial','Freight','Ongole'],year:'2024',floors:'3 Floors',capacity:'2000 kg',speed:'0.5 m/s'},
-  {cat:'residential',icon:'fa-home',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:220,title:'Apartment Complex — <em>Kurnool</em>',desc:'Twin passenger elevators for a 15-floor residential apartment complex. High-efficiency gearless traction system, destination control, and mirror-finish stainless steel cabin interiors.',tags:['Residential','Apartment','Kurnool'],year:'2023',floors:'15 Floors',capacity:'13 Persons',speed:'2.0 m/s'},
-  {cat:'commercial',icon:'fa-hotel',bg:'linear-gradient(135deg,#0d0d0d,#1a1000)',h:255,title:'Boutique Hotel — <em>Kadapa</em>',desc:'Luxury elevator for a boutique hotel with custom wood-veneer cabin interior, gold-finish hardware, recessed LED lighting, and Bluetooth-enabled destination display. Matches the hotel\'s heritage design language.',tags:['Commercial','Hotel','Custom Design'],year:'2024',floors:'6 Floors',capacity:'8 Persons',speed:'1.0 m/s'},
-  {cat:'hospital',icon:'fa-clinic-medical',bg:'linear-gradient(135deg,#111,#1a1208)',h:240,title:'Nursing Home Lift — <em>Nellore</em>',desc:'Compact MRL elevator for a 4-floor nursing home. Easy-access wide doors, handrail on three walls, emergency phone, and backup power. Designed for patient safety and easy wheelchair / gurney access.',tags:['Healthcare','MRL','Accessibility'],year:'2023',floors:'4 Floors',capacity:'8 Persons',speed:'1.0 m/s'},
-  {cat:'commercial',icon:'fa-university',bg:'linear-gradient(135deg,#1a1208,#111)',h:245,title:'College Administrative Block — <em>Chittoor</em>',desc:'Two passenger elevators for a 5-floor college administrative building. Designed for high-traffic operation with 180-second door-open hold, stainless steel cabin, and energy-saving standby mode.',tags:['Commercial','Education','Chittoor'],year:'2024',floors:'5 Floors',capacity:'13 Persons',speed:'1.0 m/s'},
-  {cat:'industrial',icon:'fa-boxes',bg:'linear-gradient(135deg,#0d0d0d,#1a1208)',h:230,title:'Factory Service Lift — <em>Anantapur</em>',desc:'1-tonne service elevator for a textile factory with 4 floors. Features industrial-grade cabin, automatic bi-parting doors, and remote monitoring capability for 24/7 production environment.',tags:['Industrial','Service Lift','Anantapur'],year:'2023',floors:'4 Floors',capacity:'1000 kg',speed:'0.5 m/s'},
-  {cat:'panoramic',icon:'fa-building',bg:'linear-gradient(135deg,#1a1000,#0d0d0d)',h:265,title:'IT Park Glass Elevator — <em>Visakhapatnam</em>',desc:'Premium panoramic elevator in a 10-floor IT park atrium. Full-height glass shaft, energy-efficient regenerative drive that feeds power back to the grid, and smart destination dispatch system.',tags:['Panoramic','Commercial','Visakhapatnam'],year:'2024',floors:'10 Floors',capacity:'13 Persons',speed:'2.0 m/s'},
-  {cat:'residential',icon:'fa-home',bg:'linear-gradient(135deg,#1a1208,#111)',h:235,title:'Independent Villa — <em>Kadapa</em>',desc:'Minimalist 3-floor home lift for a modern independent villa. Compact shaft footprint (900×900mm), half-glass cabin door, and whisper-quiet operation ideal for residential environments.',tags:['Residential','Home Lift','Minimalist'],year:'2024',floors:'3 Floors',capacity:'3 Persons',speed:'0.4 m/s'},
-  {cat:'hospital',icon:'fa-ambulance',bg:'linear-gradient(135deg,#111,#1a1208)',h:250,title:'Dialysis Centre — <em>Rajahmundry</em>',desc:'Dedicated patient elevator for a 3-floor dialysis centre. Wide 1100mm doors, smooth ride for patient comfort, independent power supply, and emergency communication system installed.',tags:['Healthcare','Patient Lift','Rajahmundry'],year:'2023',floors:'3 Floors',capacity:'Wheelchair + Attendant',speed:'0.6 m/s'},
-  {cat:'industrial',icon:'fa-utensils',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:220,title:'Restaurant Dumbwaiter — <em>Hyderabad</em>',desc:'150kg food service dumbwaiter for a 4-floor restaurant chain. Silent operation, auto-call system, stainless steel interior for hygiene, and soft-stop mechanism for safe food transport.',tags:['Industrial','Dumbwaiter','Food Service'],year:'2024',floors:'4 Floors',capacity:'150 kg',speed:'0.4 m/s'},
-  {cat:'commercial',icon:'fa-shopping-bag',bg:'linear-gradient(135deg,#0d0d0d,#1a1000)',h:260,title:'Retail Complex — <em>Kakinada</em>',desc:'Three passenger elevators installed across a 6-floor retail complex. Coordinated destination control, branded cabin interiors matching retail theme, and energy-efficient gearless traction drive.',tags:['Commercial','Retail','Kakinada'],year:'2024',floors:'6 Floors',capacity:'3×13 Persons',speed:'1.5 m/s'},
-  {cat:'residential',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:240,title:'Luxury Apartments — <em>Vijayawada</em>',desc:'Signature elevator for a luxury high-rise with 18 floors. VIP destination control, marble-effect cabin floor, designer ceiling with chandelier lighting, and silent gearless machine.',tags:['Residential','Luxury','Vijayawada'],year:'2023',floors:'18 Floors',capacity:'10 Persons',speed:'2.5 m/s'},
-  {cat:'panoramic',icon:'fa-star',bg:'linear-gradient(135deg,#111,#1a1000)',h:250,title:'Office Lobby Panoramic — <em>Nellore</em>',desc:'Statement panoramic elevator for a corporate HQ lobby. Three-sided glass panoramic view, internal LED strip lighting on all four walls, and destination dispatch for peak-hour efficiency.',tags:['Panoramic','Corporate','Nellore'],year:'2024',floors:'8 Floors',capacity:'10 Persons',speed:'1.5 m/s'},
-  {cat:'industrial',icon:'fa-warehouse',bg:'linear-gradient(135deg,#1a1208,#111)',h:235,title:'Cold Storage Freight Lift — <em>Ongole</em>',desc:'Specialised freight elevator designed for cold storage application with stainless steel interior, temperature-resistant components, sealed motor enclosure, and heavy-duty capacity.',tags:['Industrial','Cold Storage','Specialised'],year:'2023',floors:'3 Floors',capacity:'3000 kg',speed:'0.4 m/s'},
-  {cat:'commercial',icon:'fa-hospital-alt',bg:'linear-gradient(135deg,#0d0d0d,#1a1208)',h:255,title:'Corporate Office — <em>Kurnool</em>',desc:'Twin 10-passenger MRL elevators in a 12-floor corporate office. Integrated access control on cabin panel, CCTV inside cabin, destination dispatch, and remote monitoring via smartphone app.',tags:['Commercial','Smart Elevator','Kurnool'],year:'2024',floors:'12 Floors',capacity:'2×10 Persons',speed:'1.75 m/s'},
-  {cat:'residential',icon:'fa-city',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:245,title:'Gated Community — <em>Tirupati</em>',desc:'Four elevators across two 20-floor residential towers in a premium gated community. Parallel group control, stainless steel finish, destination dispatch and 24/7 AMC included in project scope.',tags:['Residential','Group Control','Tirupati'],year:'2023',floors:'20 Floors',capacity:'4×13 Persons',speed:'2.0 m/s'},
-
+  {cat:'residential',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:500,title:'Residential Apartment — <em>Tirupati</em>',desc:'6-passenger MR elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',tags:['Residential','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',media:[{type:'image',src:'media/projects/tirupati-apartment/img-01.png'},{type:'video',src:'media/projects/tirupati-apartment/vid-01.mp4'}]},
+  
 ];
-*/
 let showing=9, filterCat='all', filtered=[];
+let lbIdx=0, lbMediaIdx=0;
+let touchStartX=0, touchStartY=0, touchEndX=0, touchEndY=0;
+let savedScrollY=0;
 function getFiltered(){return filterCat==='all'?items:items.filter(i=>i.cat===filterCat);}
-function renderGallery(){
+function updateStats(){
+  document.getElementById('totalCount').textContent=items.length;
+  document.getElementById('commercialCount').textContent=items.filter(i=>i.cat==='commercial').length;
+  document.getElementById('residentialCount').textContent=items.filter(i=>i.cat==='residential').length;
+  document.getElementById('industrialCount').textContent=items.filter(i=>['industrial','home-lifts'].includes(i.cat)).length;
+}
+function updateFilterButtons(){
+  document.querySelectorAll('.fc2').forEach(btn=>btn.classList.toggle('on', btn.dataset.cat===filterCat));
+}
+function getCurrentState(){
+  return {
+    filterCat,
+    showing,
+    lbOpen: document.getElementById('lb').classList.contains('o'),
+    lbIdx,
+    lbMediaIdx,
+    scrollY: window.scrollY||0
+  };
+}
+function replaceHistoryState(){window.history.replaceState(getCurrentState(),'');}
+function pushHistoryState(){window.history.pushState(getCurrentState(),'');}
+function restoreState(state){
+  if(!state) return;
+  filterCat = state.filterCat || 'all';
+  showing = typeof state.showing==='number' ? state.showing : 9;
+  lbIdx = typeof state.lbIdx==='number' ? state.lbIdx : 0;
+  lbMediaIdx = typeof state.lbMediaIdx==='number' ? state.lbMediaIdx : 0;
+  updateFilterButtons();
+  renderGallery(false);
+  if(state.lbOpen && filtered[lbIdx]){
+    openLb(lbIdx, false);
+  } else {
+    closeLb(false);
+  }
+  setTimeout(()=>window.scrollTo(0, state.scrollY||0), 20);
+}
+window.addEventListener('popstate', e=>{ if(e.state) restoreState(e.state); });
+function renderGallery(saveHistory=true){
   filtered=getFiltered();
   const toShow=filtered.slice(0,showing);
-  document.getElementById('gGrid').innerHTML=toShow.map((item,idx)=>`
-    <div class="gi" onclick="openLb(${idx})" tabindex="0" role="button" aria-label="View ${item.title.replace(/<[^>]+>/g,'')}">
-      <div class="gi-img" style="height:${item.h}px;">
-        <div class="gi-img-inner" style="background:${item.bg};inset:0;position:absolute;"></div>
-        <div class="gi-ov"><i class="fas fa-expand-alt gi-ov-ico"></i></div>
-        <i class="fas ${item.icon} gi-ico" style="font-size:3rem;color:rgba(201,168,76,.22);position:relative;z-index:1;"></i>
-      </div>
-      <div class="gi-cap">
-        <div class="gi-tag-row">${item.tags.map(t=>`<span class="tag t-gold">${t}</span>`).join('')}</div>
-        <div class="gi-title">${item.title}</div>
-        <div class="gi-sub">${item.desc.substring(0,90)}…</div>
-        <div class="gi-foot">
-          <span><i class="fas fa-calendar"></i>${item.year}</span>
-          <span><i class="fas fa-layer-group"></i>${item.floors}</span>
-          <span><i class="fas fa-users"></i>${item.capacity}</span>
+  document.getElementById('gGrid').innerHTML=toShow.map((item,idx)=>{
+    const thumbnailHTML=item.media&&item.media.length>0
+      ?`<img src="${item.media[0].src}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:1;">`
+      :`<i class="fas ${item.icon} gi-ico" style="font-size:3rem;color:rgba(201,168,76,.22);position:relative;z-index:1;"></i>`;
+    return`
+      <div class="gi" onclick="openLb(${idx})" tabindex="0" role="button" aria-label="View ${item.title.replace(/<[^>]+>/g,'')}">
+        <div class="gi-img" style="height:${item.h}px;">
+          <div class="gi-img-inner" style="background:${item.bg};inset:0;position:absolute;z-index:0;"></div>
+          <div class="gi-ov"><i class="fas fa-expand-alt gi-ov-ico"></i></div>
+          ${thumbnailHTML}
         </div>
-      </div>
-    </div>
-  `).join('');
+        <div class="gi-cap">
+          <div class="gi-tag-row">${item.tags.map(t=>`<span class="tag t-gold">${t}</span>`).join('')}</div>
+          <div class="gi-title">${item.title}</div>
+          <div class="gi-sub">${item.desc.substring(0,90)}…</div>
+          <div class="gi-foot">
+            <span><i class="fas fa-calendar"></i>${item.year}</span>
+            <span><i class="fas fa-layer-group"></i>${item.floors}</span>
+            <span><i class="fas fa-users"></i>${item.capacity}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
   document.getElementById('shownCount').textContent=toShow.length;
   document.getElementById('allCount').textContent=filtered.length;
-  document.getElementById('totalCount').textContent=items.length;
+  updateStats();
   document.getElementById('lmBtn').style.display=showing>=filtered.length?'none':'inline-flex';
+  document.querySelectorAll('#gGrid .gi').forEach(el=>el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); }}));
+  if(saveHistory) replaceHistoryState();
 }
-function filterGallery(cat,btn){filterCat=cat;showing=9;document.querySelectorAll('.fc2').forEach(c=>c.classList.remove('on'));btn.classList.add('on');renderGallery();}
-function loadMore(){showing+=6;renderGallery();}
-
-/* LIGHTBOX */
-let lbIdx=0;
-function openLb(idx){
-  lbIdx=idx;const item=filtered[idx];
-  document.getElementById('lbMedia').innerHTML=`<i class="fas ${item.icon}" style="font-size:5rem;color:rgba(201,168,76,.3);position:relative;z-index:1;"></i><div style="position:absolute;inset:0;background:${item.bg};"></div>`;
+function filterGallery(cat,btn){filterCat=cat;showing=9;updateFilterButtons();renderGallery();pushHistoryState();}
+function loadMore(){showing+=6;renderGallery();pushHistoryState();}
+function cleanupVideo(){const video=document.querySelector('#lbMediaContainer video');if(video){video.pause();video.currentTime=0;}}
+function handleVideoEnded(){cleanupVideo();}
+function renderMedia(){
+  const item=filtered[lbIdx];
+  const media=item.media||[];
+  const container=document.getElementById('lbMediaContainer');
+  cleanupVideo();
+  if(media.length===0){
+    container.innerHTML=`<div style="position:absolute;inset:0;background:${item.bg};"></div><i class="fas ${item.icon}" style="font-size:5rem;color:rgba(201,168,76,.3);position:relative;z-index:1;"></i>`;
+    document.getElementById('lbMediaCounter').innerHTML='';
+    document.getElementById('lbMediaDots').innerHTML='';
+    document.getElementById('lbMediaPrev').style.display='none';
+    document.getElementById('lbMediaNext').style.display='none';
+    return;
+  }
+  lbMediaIdx=Math.max(0,Math.min(lbMediaIdx,media.length-1));
+  const current=media[lbMediaIdx];
+  let mediaHTML='';
+  if(current.type==='image'){
+    mediaHTML=`<img src="${current.src}" alt="Project media" style="max-width:100%;max-height:100%;object-fit:contain;">`;
+  } else if(current.type==='video'){
+    mediaHTML=`<video controls playsinline webkit-playsinline controlsList="nodownload nofullscreen noremoteplayback" disablepictureinpicture oncontextmenu="return false;" onended="handleVideoEnded()" style="max-width:100%;max-height:100%;object-fit:contain;touch-action:auto;pointer-events:auto;"><source src="${current.src}" type="video/mp4">Your browser does not support the video tag.</video>`;
+  }
+  container.innerHTML=mediaHTML;
+  document.getElementById('lbMediaCounter').innerHTML=`${lbMediaIdx+1} / ${media.length}`;
+  document.getElementById('lbMediaPrev').style.display=media.length>1?'flex':'none';
+  document.getElementById('lbMediaNext').style.display=media.length>1?'flex':'none';
+  document.getElementById('lbMediaDots').innerHTML=media.map((m,i)=>`<div class="lb-media-dot ${i===lbMediaIdx?'active':''}" onclick="switchMedia(${i})"></div>`).join('');
+  replaceHistoryState();
+}
+function switchMedia(idx){
+  const item=filtered[lbIdx];
+  const media=item.media||[];
+  if(media.length===0)return;
+  lbMediaIdx=(idx+media.length)%media.length;
+  renderMedia();
+}
+function openLb(idx, addHistory=true){
+  if(!filtered[idx]) return;
+  lbIdx=idx;lbMediaIdx=0;
+  const item=filtered[idx];
+  renderMedia();
   document.getElementById('lbTags').innerHTML=item.tags.map(t=>`<span class="tag t-gold">${t}</span>`).join('');
   document.getElementById('lbTitle').innerHTML=item.title;
   document.getElementById('lbDesc').textContent=item.desc;
@@ -305,19 +371,93 @@ function openLb(idx){
     <span class="lb-mi"><i class="fas fa-map-marker-alt"></i>${item.tags[item.tags.length-1]}</span>
   `;
   document.getElementById('lb').classList.add('o');
-  document.body.style.overflow='hidden';
+  lockBodyScroll();
+  if(addHistory) pushHistoryState();
 }
-function closeLb(){document.getElementById('lb').classList.remove('o');document.body.style.overflow='';}
-function lbNav(d){lbIdx=(lbIdx+d+filtered.length)%filtered.length;openLb(lbIdx);}
-document.getElementById('lb').addEventListener('click',e=>{if(e.target===document.getElementById('lb'))closeLb();});
-document.addEventListener('keydown',e=>{
-  if(document.getElementById('lb').classList.contains('o')){
-    if(e.key==='Escape')closeLb();
-    if(e.key==='ArrowLeft')lbNav(-1);
-    if(e.key==='ArrowRight')lbNav(1);
+function closeLb(addHistory=true){cleanupVideo();document.getElementById('lb').classList.remove('o');restoreBodyScroll();if(addHistory) pushHistoryState();}
+function lbNav(d){lbIdx=(lbIdx+d+filtered.length)%filtered.length;lbMediaIdx=0;const item=filtered[lbIdx];if(!item)return;openLb(lbIdx,false);}
+const lbMediaEl=document.getElementById('lbMedia');
+function lockBodyScroll(){
+  savedScrollY = window.scrollY || window.pageYOffset;
+  document.documentElement.style.overflow='hidden';
+  document.body.style.overflow='hidden';
+  document.body.style.position='fixed';
+  document.body.style.top=`-${savedScrollY}px`;
+  document.body.style.width='100%';
+}
+function restoreBodyScroll(){
+  document.documentElement.style.overflow='';
+  document.body.style.overflow='';
+  document.body.style.position='';
+  document.body.style.top='';
+  document.body.style.width='';
+  window.scrollTo(0, savedScrollY);
+}
+function isVideoTouch(e){
+  const target = e.target;
+  if(target && target.closest && target.closest('video')) return true;
+  const path = e.composedPath && e.composedPath();
+  if(path && path.some(node=>node && node.tagName==='VIDEO')) return true;
+  const point = e.changedTouches ? e.changedTouches[0] : e;
+  if(point && point.clientX !== undefined && point.clientY !== undefined){
+    const videos = document.querySelectorAll('#lbMediaContainer video');
+    for(const video of videos){
+      const rect = video.getBoundingClientRect();
+      if(point.clientX >= rect.left && point.clientX <= rect.right && point.clientY >= rect.top && point.clientY <= rect.bottom){
+        return true;
+      }
+    }
+  }
+  return false;
+}
+lbMediaEl.addEventListener('touchstart',e=>{
+  const item=filtered[lbIdx] || {};
+  const current= item.media && item.media[lbMediaIdx];
+  if(current && current.type==='video'){e.stopPropagation();return;}
+  if(isVideoTouch(e)){e.stopPropagation();return;}
+  const touch=e.changedTouches[0];
+  touchStartX=touch.clientX;
+  touchStartY=touch.clientY;
+});
+lbMediaEl.addEventListener('touchend',e=>{
+  const item=filtered[lbIdx] || {};
+  const current= item.media && item.media[lbMediaIdx];
+  if(current && current.type==='video'){e.stopPropagation();return;}
+  if(isVideoTouch(e)){e.stopPropagation();return;}
+  const touch=e.changedTouches[0];
+  touchEndX=touch.clientX;
+  touchEndY=touch.clientY;
+  const dx=touchEndX-touchStartX;
+  const dy=touchEndY-touchStartY;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){
+    if(dx<0) switchMedia(lbMediaIdx+1);
+    else switchMedia(lbMediaIdx-1);
   }
 });
-document.querySelectorAll('.gi').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')el.click();}));
+lbMediaEl.addEventListener('pointerdown',e=>{
+  const item=filtered[lbIdx] || {};
+  const current= item.media && item.media[lbMediaIdx];
+  if(current && current.type==='video'){e.stopPropagation();return;}
+  if(isVideoTouch(e)){e.stopPropagation();return;}
+  touchStartX=e.clientX;
+  touchStartY=e.clientY;
+});
+lbMediaEl.addEventListener('pointerup',e=>{
+  const item=filtered[lbIdx] || {};
+  const current= item.media && item.media[lbMediaIdx];
+  if(current && current.type==='video'){e.stopPropagation();return;}
+  if(isVideoTouch(e)){e.stopPropagation();return;}
+  touchEndX=e.clientX;
+  touchEndY=e.clientY;
+  const dx=touchEndX-touchStartX;
+  const dy=touchEndY-touchStartY;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){
+    if(dx<0) switchMedia(lbMediaIdx+1);
+    else switchMedia(lbMediaIdx-1);
+  }
+});
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===document.getElementById('lb'))closeLb();});
+document.addEventListener('keydown',e=>{if(document.getElementById('lb').classList.contains('o')){const item=filtered[lbIdx];const mediaCount=item.media?item.media.length:0;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft'){if(mediaCount>1&&lbMediaIdx>0){switchMedia(lbMediaIdx-1);}else if(mediaCount===0||lbMediaIdx===0){lbNav(-1);}}if(e.key==='ArrowRight'){if(mediaCount>1&&lbMediaIdx<mediaCount-1){switchMedia(lbMediaIdx+1);}else if(mediaCount===0||lbMediaIdx===mediaCount-1){lbNav(1);}}}});
 renderGallery();
 </script>
 </body>
