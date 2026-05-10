@@ -57,7 +57,7 @@
 .lb-media img,.lb-media video{max-width:100%;max-height:100%;object-fit:contain;}
 .lb-info{padding:1.75rem 2rem;max-height:calc(100vh - 42vh);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(128, 128, 128, 0.475) transparent;}
 @media(max-width:900px){.lb-wrap{margin:0 1rem;}.lb-media{height:min(50vh,480px);}.lb-info{padding:1.2rem 1.2rem;}.lb-title{font-size:1.3rem;}.lb-meta{gap:1rem;}.lb-media-scroll{width:36px;height:36px;}.lb-x{width:34px;height:34px;}} 
-@media(max-width:600px){.lb-media{height:min(45vh,380px);}.lb-info{padding:1rem 1rem;}.lb-title{font-size:1.1rem;}.lb-desc{font-size:.82rem;}.lb-meta{flex-direction:column;gap:.75rem;}.lb-media-counter{top:auto;bottom:1rem;right:1rem;left:auto;}.lb-media-scroll.left{left:.5rem;}.lb-media-scroll.right{right:.5rem;}}
+@media(max-width:600px){.lb-media{height:min(45vh,380px);}.lb-info{padding:1rem 1rem;}.lb-title{font-size:1.1rem;}.lb-desc{font-size:.82rem;}.lb-meta{flex-direction:column;gap:.75rem;}.lb-media-counter{top:auto;bottom:21.5rem;right:16.5rem;left:auto;}.lb-media-scroll.left{left:.5rem;}.lb-media-scroll.right{right:.5rem;}}
 .lb-x{position:absolute;top:1rem;right:1rem;z-index:10;width:38px;height:38px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--grey);font-size:1rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;}
 .lb-x:hover{background:rgba(247, 181, 0, 0.2);color:var(--white);}
 .lb-nav{position:absolute;top:50%;z-index:10;width:40px;height:40px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.18);color:var(--grey);font-size:.9rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;transform:translateY(-50%);}
@@ -73,7 +73,7 @@
 .lb-media-dot{width:10px;height:10px;border-radius:50%;background:rgba(201,168,76,.25);cursor:pointer;transition:all var(--tr);border:1px solid rgba(201,168,76,.4);}
 .lb-media-dot:hover{background:rgba(201,168,76,.4);}
 .lb-media-dot.active{background:var(--gold);width:14px;border-color:var(--gold);}
-.lb-media-counter{position:absolute;top:1rem;left:1rem;font-size:.85rem;color:var(--grey);padding:0.5rem 1rem;border-radius:.3rem;font-weight:600;letter-spacing:.05em;z-index: -1;}
+.lb-media-counter{position:absolute;top:1rem;left:1rem;font-size:.85rem;color: yellow;padding:0.5rem 1rem;border-radius:.3rem;font-weight:600;letter-spacing:.05em; background-color: rgba(201,168,76,.25);}
 .lb-tagrow{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;}
 .lb-title{font-family:var(--fd);font-size:1.6rem;font-weight:400;margin-bottom:.5rem;}
 .lb-title em{color:var(--gold);font-style:italic;}
@@ -238,7 +238,7 @@ document.querySelectorAll('.rv,.rl,.rr').forEach(el=>ro.observe(el));
 
 /* GALLERY DATA */
 const items=[
-  {cat:'residential',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:500,title:'Residential Apartment — <em>Tirupati</em>',desc:'6-passenger MR elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',tags:['Residential','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',media:[{type:'image',src:'media/projects/tirupati-apartment/img-01.png'},{type:'video',src:'media/projects/tirupati-apartment/vid-01.mp4'}]},
+  {cat:'residential',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:500,title:'Residential Apartment — <em>Tirupati</em>',desc:'6-passenger MR elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',tags:['Residential','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',media:[{type:'image',src:'media/projects/tirupati-apartment/img-01.png'},/*{type:'video',src:'media/projects/tirupati-apartment/vid-01.mp4'}*/]},
   
 ];
 let showing=9, filterCat='all', filtered=[];
