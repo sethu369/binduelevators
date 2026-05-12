@@ -82,9 +82,62 @@
 .lb-mi{font-size:.78rem;color:var(--grey);display:flex;align-items:center;gap:.4rem;}
 .lb-mi i{color:var(--gold);}
 
+/* FULLSCREEN MEDIA */
+.fs{display:none;position:fixed;inset:0;z-index:3000;background:#000;align-items:center;justify-content:center;overflow:hidden;opacity:0;transition:opacity .3s ease;animation:fsIn .3s ease forwards;}
+@keyframes fsIn{from{opacity:0;}to{opacity:1;}}
+.fs.o{display:flex;opacity:1;}
+.fs.closing{animation:fsOut .3s ease forwards;}
+@keyframes fsOut{from{opacity:1;}to{opacity:0;}}
+.fs-wrapper{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:2rem;}
+.fs-container{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;}
+.fs-media{max-width:100%;max-height:100%;object-fit:contain;border-radius:.5rem;}
+.fs-media.video-wrapper{width:100%;height:100%;border-radius:0;}
+.fs-media video,.fs-media iframe{width:100%;height:100%;border-radius:.5rem;}
+
+/* FULLSCREEN TOP BAR */
+.fs-top{position:absolute;top:0;left:0;right:0;height:auto;padding:1rem 1.5rem;background:linear-gradient(to bottom, rgba(0,0,0,.7), transparent);z-index:20;display:flex;align-items:center;justify-content:space-between;}
+
+/* FULLSCREEN CLOSE BUTTON */
+.fs-close{position:absolute;top:1.2rem;right:1.2rem;z-index:25;width:44px;height:44px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:var(--white);font-size:1.1rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;border-radius:.4rem;}
+.fs-close:hover{background:rgba(201,168,76,.25);border-color:var(--gold);transform:scale(1.08);}
+.fs-close:active{transform:scale(.95);}
+
+/* FULLSCREEN MEDIA COUNTER */
+.fs-counter{position:absolute;top:1.2rem;left:1.2rem;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:.85rem;padding:.6rem 1rem;border-radius:.4rem;font-weight:600;letter-spacing:.05em;z-index:20;}
+
+/* FULLSCREEN NAVIGATION */
+.fs-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:48px;height:48px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:1.1rem;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;border-radius:.4rem;}
+.fs-nav:hover{background:rgba(201,168,76,.22);border-color:var(--gold);transform:scale(1.1);}
+.fs-nav:active{transform:scale(.95);}
+.fs-nav.prev{left:1rem;}
+.fs-nav.next{right:1rem;}
+@media(max-width:600px){.fs-nav{width:40px;height:40px;font-size:.9rem;}.fs-nav.prev{left:.5rem;}.fs-nav.next{right:.5rem;}}
+
+/* FULLSCREEN BOTTOM BAR */
+.fs-bottom{position:absolute;bottom:0;left:0;right:0;height:auto;padding:1rem 1.5rem;background:linear-gradient(to top, rgba(0,0,0,.7), transparent);z-index:20;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;}
+
+/* FULLSCREEN MEDIA DOTS */
+.fs-dots{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:wrap;}
+.fs-dot{width:10px;height:10px;border-radius:50%;background:rgba(201,168,76,.2);cursor:pointer;transition:all var(--tr);border:1px solid rgba(201,168,76,.3);}
+.fs-dot:hover{background:rgba(201,168,76,.35);border-color:var(--gold);}
+.fs-dot.active{width:14px;background:var(--gold);border-color:var(--gold);}
+
+/* RESPONSIVE FULLSCREEN */
+@media(max-width:900px){.fs-wrapper{padding:1.5rem;}.fs-top{padding:1rem 1.2rem;}.fs-bottom{padding:1rem 1.2rem;}}
+@media(max-width:600px){
+  .fs-wrapper{padding:1rem;padding-top:4rem;padding-bottom:4rem;}
+  .fs-top{padding:.8rem 1rem;top:0;}
+  .fs-close{width:40px;height:40px;font-size:1rem;top:1rem;right:1rem;}
+  .fs-counter{font-size:.75rem;padding:.5rem .8rem;top:1rem;left:1rem;}
+  .fs-bottom{padding:.8rem 1rem;}
+  .fs-media{border-radius:.3rem;}
+}
+
 /* LOAD MORE */
 .lm-sec{text-align:center;padding:1.5rem 0;}
 .lm-sec p{font-size:.84rem;color:var(--grey);margin-bottom:1.25rem;}
+/* SPINNER ANIMATION */
+@keyframes lbSpin{to{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
@@ -156,10 +209,12 @@
     <!-- STATS -->
     <div class="gstats rv">
       <div class="gs"><div class="gs-ico"><i class="fas fa-images"></i></div><div><div class="gs-num" id="totalCount">0</div><div class="gs-lbl">Total Projects</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-building"></i></div><div><div class="gs-num" id="residentialCount">0</div><div class="gs-lbl">Residential Apartments</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-home"></i></div><div><div class="gs-num" id="home-liftsCount">0</div><div class="gs-lbl">Home Lifts</div></div></div>
       <div class="gs"><div class="gs-ico"><i class="fas fa-building"></i></div><div><div class="gs-num" id="commercialCount">0</div><div class="gs-lbl">Commercial projects</div></div></div>
-      <div class="gs"><div class="gs-ico"><i class="fas fa-home"></i></div><div><div class="gs-num" id="residentialCount">0</div><div class="gs-lbl">Residential Apartments</div></div></div>
-      <div class="gs"><div class="gs-ico"><i class="fas fa-boxes"></i></div><div><div class="gs-num" id="industrialCount">0</div><div class="gs-lbl">Home Lifts</div></div></div>
+      <div class="gs"><div class="gs-ico"><i class="fas fa-hotel"></i></div><div><div class="gs-num" id="lodges-hotelsCount">0</div><div class="gs-lbl">Lodges/Hotels</div></div></div>
     </div>
+
 
     <!-- FILTERS -->
     <div class="filter-bar rv">
@@ -167,6 +222,7 @@
       <button class="fc2" data-cat="residential" onclick="filterGallery('residential',this)">Residential</button>
       <button class="fc2" data-cat="home-lifts" onclick="filterGallery('home-lifts',this)">Home-lifts</button>
       <button class="fc2" data-cat="commercial" onclick="filterGallery('commercial',this)">Commercial</button>
+      <button class="fc2" data-cat="lodges-hotels" onclick="filterGallery('lodges-hotels',this)">Lodges/Hotels</button>
     </div>
 
     <!-- GRID -->
@@ -182,14 +238,19 @@
 </section>
 
 <!-- LIGHTBOX -->
-<div class="lb" id="lb" role="dialog" aria-modal="true">
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Media lightbox">
   <div class="lb-wrap">
-    <button class="lb-x" onclick="closeLb()"><i class="fas fa-times"></i></button>
+    <div id="lbThumbs" style="display:flex;gap:.5rem;overflow-x:auto;padding:.6rem 1rem;background:rgba(0,0,0,.4);scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.3) transparent;-webkit-overflow-scrolling:touch;justify-content: center;" role="tablist" aria-label="Media thumbnails"></div>
+    <button class="lb-x" onclick="closeLb()" aria-label="Close lightbox"><i class="fas fa-times"></i></button>
     <div class="lb-media" id="lbMedia">
+       <!-- Loading spinner -->
+      <div id="lbSpinner" style="display:none;position:absolute;inset:0;z-index:10;background:rgba(0,0,0,.5);align-items:center;justify-content:center;">
+        <div style="width:44px;height:44px;border:3px solid rgba(201,168,76,.2);border-top-color:var(--gold);border-radius:50%;animation:lbSpin .8s linear infinite;"></div>
+      </div>
       <div class="lb-media-container" id="lbMediaContainer"></div>
       <div class="lb-media-counter" id="lbMediaCounter"></div>
-      <button class="lb-media-scroll left" id="lbMediaPrev" onclick="switchMedia(lbMediaIdx-1)"><i class="fas fa-chevron-left"></i></button>
-      <button class="lb-media-scroll right" id="lbMediaNext" onclick="switchMedia(lbMediaIdx+1)"><i class="fas fa-chevron-right"></i></button>
+      <button class="lb-media-scroll left" id="lbMediaPrev" onclick="switchMedia(lbMediaIdx-1)" aria-label="Previous media"><i class="fas fa-chevron-left"></i></button>
+      <button class="lb-media-scroll right" id="lbMediaNext" onclick="switchMedia(lbMediaIdx+1)" aria-label="Next media"><i class="fas fa-chevron-right"></i></button>
       <div class="lb-media-dots" id="lbMediaDots"></div>
     </div>
     <div class="lb-info">
@@ -197,6 +258,24 @@
       <h3 class="lb-title" id="lbTitle"></h3>
       <p class="lb-desc" id="lbDesc"></p>
       <div class="lb-meta" id="lbMeta"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FULLSCREEN MEDIA -->
+<div class="fs" id="fs" role="dialog" aria-modal="true" aria-label="Fullscreen media viewer">
+  <div class="fs-wrapper">
+    <div class="fs-counter" id="fsCounter"></div>
+    <button class="fs-close" onclick="closeFs()" aria-label="Close fullscreen"><i class="fas fa-times"></i></button>
+    <button class="fs-nav prev" id="fsPrev" onclick="switchFsMedia(-1)" aria-label="Previous media"><i class="fas fa-chevron-left"></i></button>
+    <button class="fs-nav next" id="fsNext" onclick="switchFsMedia(1)" aria-label="Next media"><i class="fas fa-chevron-right"></i></button>
+        <!-- FS Loading Spinner -->
+    <div id="fsSpinner" style="display:none;position:absolute;inset:0;z-index:30;align-items:center;justify-content:center;pointer-events:none;">
+      <div style="width:52px;height:52px;border:3px solid rgba(201,168,76,.2);border-top-color:var(--gold);border-radius:50%;animation:lbSpin .8s linear infinite;"></div>
+    </div>
+    <div class="fs-container" id="fsContainer"></div>
+    <div class="fs-bottom" id="fsBottom">
+      <div class="fs-dots" id="fsDots"></div>
     </div>
   </div>
 </div>
@@ -224,7 +303,6 @@
     <p>Developed by <a target="_blank" href="https://www.instagram.com/sethu.thangella/">Sethu</a></p>
   </div>
 </footer>
-
 <script>
 (()=>{let p=0;const f=document.getElementById('ldf'),t=document.getElementById('ldp'),l=document.getElementById('loader');const iv=setInterval(()=>{p+=Math.random()*14+4;if(p>=100){p=100;clearInterval(iv);setTimeout(()=>l.classList.add('out'),350);}f.style.width=p+'%';t.textContent=Math.floor(p)+'%';},70);})();
 const nav=document.getElementById('nav'),btt=document.getElementById('btt'),wa=document.getElementById('wa');
@@ -238,88 +316,242 @@ document.querySelectorAll('.rv,.rl,.rr').forEach(el=>ro.observe(el));
 
 /* GALLERY DATA */
 const items=[
-  {cat:'residential',icon:'fa-building',bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',h:500,title:'Residential Apartment — <em>Tirupati</em>',desc:'6-passenger MR elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',tags:['Residential','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',media:[{type:'image',src:'media/projects/tirupati-apartment/img-01.png'},/*{type:'video',src:'media/projects/tirupati-apartment/vid-01.mp4'}*/]},
-  
+  {cat:'residential',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:600,title:'Residential Apartment — <em>Tirupati - Vedanthapuram</em>',
+  desc:'6-passenger elevator installed in a G+3 residential building in Vedanthapuram,Tirupati, Andhra Pradesh. Features a microprocessor-based down collective VVVF controller, 408 kg load capacity, 0.6 m/s speed, and 10-meter travel height. Equipped with MS powder-coated cabin panels, MS door frames with collapsible gates, PVC anti-skid flooring, SS mirror-finish ceiling, LED lighting, circular fan, LCD displays on all floors and inside the cabin, voice announcement system, emergency alarm with battery backup, ARD system, SHARP 5 HP induction motor, and USHA MARTIN rolling ropes for smooth, safe, and reliable operation.',
+  tags:['Residential','6 Passenger','G+3 Building','MS Cabin','ARD System','VVVF Controller','Voice Announcement','Tirupati'],year:'2026',floors:'G+3 Floors',capacity:'6 Passengers',speed:'0.6 m/s',
+  media:[{type: 'image', src: 'media/projects/madhavaiah.png' },{type:'iframe',src:'https://drive.google.com/file/d/1tphquOHdx2sAXSQstifd4ycv1js-BWXs/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1BkaWSQZX-5hBFCfkkC_0kTAZb-JRtKHS/preview'}]},
+ 
+  {cat:'commercial',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:500,title:'Commercial Building — <em>Tiruchanuru - Near Nandhakam Hospital</em>',
+  desc:'6-passenger elevator installed in a G+3 commercial building in Tiruchanur, Tirupati District, Andhra Pradesh. Features a microprocessor-based down collective VVVF controller, 408 kg load capacity, 0.6 m/s speed, and 10-meter travel height. Equipped with SS 304 matt-finish cabin panels, SS full-vision automatic doors, PVC anti-skid flooring, SS mirror-finish ceiling, LED lighting, circular fan, LCD displays on all floors and inside the cabin, voice announcement system, emergency alarm with battery backup, ARD system, Monatory 5 HP induction motor, and USHA MARTIN rolling ropes for smooth, safe, and reliable commercial operation.',
+  tags:['Commercial','6 Passenger','G+3 Building','SS 304 Cabin','Auto Doors','ARD System','VVVF Controller','Voice Announcement','Tiruchanur'],year:'2025',floors:'G+3 Floors',capacity:'6 Passengers',speed:'0.6 m/s',  
+  media:[{type: 'image', src: 'media/projects/narsimhareddy.png' },{type:'iframe',src:'https://drive.google.com/file/d/1pQxPMDjHfOPNMzq_xr_Lyu_RDM4Pl4Ii/preview'}]},
+
+  {cat:'residential',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:500,title:'Residential Apartment — <em>Naidupeta - Juvvulapalem</em>',
+  desc:'6-passenger elevator installed in a G+3 residential building in Naidupeta, Tirupati District, Andhra Pradesh. Features a microprocessor-based down collective VVVF controller, 408 kg load capacity, 0.6 m/s speed, and 10-meter travel height. Equipped with SS matt-finish cabin panels, MS matt-finish door frames with collapsible gates, PVC anti-skid flooring, SS mirror-finish ceiling, LED lighting, circular fan, LCD displays on all floors and inside the cabin, voice announcement system, emergency alarm with battery backup, ARD system, SHARP 5 HP induction motor, and USHA MARTIN rolling ropes for smooth, safe, and reliable operation.',
+  tags:['Residential','6 Passenger','G+3 Building','SS Cabin','ARD System','VVVF Controller','Voice Announcement','Naidupeta'],year:'2023',floors:'G+3 Floors',capacity:'6 Passengers',speed:'0.6 m/s',
+  media:[{type: 'image', src: 'media/projects/ravi.png' },{type:'iframe',src:'https://drive.google.com/file/d/1Dy6AwDul_u6muYadB0xveBoxKV9Zv58a/preview'}]},
+ 
+  {cat:'residential',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:500,title:'Residential Apartment — <em>Tada - Housing Board Colony</em>',
+  desc:'6-passenger elevator installed in a G+3 residential building at Housing Board Colony, Tada, Tirupati District, Andhra Pradesh. Features a microprocessor-based down collective VVVF controller, 408 kg load capacity, 0.6 m/s speed, and 10-meter travel height. Equipped with SS matt-finish cabin panels, SS door frames with collapsible gates, PVC anti-skid flooring, SS mirror-finish ceiling, LED lighting, circular fan, LCD displays on all floors and inside the cabin, voice announcement system, emergency alarm with battery backup, ARD system, SHARP 5 HP induction motor, and USHA MARTIN rolling ropes for smooth, safe, and reliable residential operation.',
+  tags:['Residential','6 Passenger','G+3 Building','SS Cabin','Collapsible Gate','ARD System','VVVF Controller','Voice Announcement','Tada',],year:'2023',floors:'G+3 Floors',capacity:'6 Passengers',speed:'0.6 m/s',
+  media:[{type: 'image', src: 'media/projects/rajesh.png' },{type:'iframe',src:'https://drive.google.com/file/d/12efoZjLyLp5Gcf2YvwZJBpQ7rWUk059a/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1iAb5RMso4TugCtqcf6Ctxw7dvFJVP18W/preview'}]},
+  /*
+  {cat:'home-lifts',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:400,title:'Home Lift — <em>Naidupeta - Darga road</em>',
+  desc:'6-passenger MR elevator installed in a 3-floor commercial building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor commercial building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',
+  tags:['Home Lift','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',
+  media:[{type: 'image', src: 'media/projects/saibaba.png' },{type:'iframe',src:'https://drive.google.com/file/d/1lYL_oHj431uN5z4T8s9ckLCKYeHCsLP2/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1zmVDyGnt9TzQMyl38_Ez61bCXkqMWcAt/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1YssJMACouBowSbizI4ST3sJGqLcLuhK_/preview'}]},
+ 
+  {cat:'home-lifts',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:600,title:'Home Lift — <em>Tirupati - Near Municipal Park</em>',
+  desc:'6-passenger MR elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',
+  tags:['Home Lift','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',
+  media:[{type: 'image', src: 'media/projects/Ramanareddy.png' },{type:'iframe',src:'https://drive.google.com/file/d/1oOoQcU40kCxN094QtfiskqIEaUs-5NXm/preview'}]},
+
+  {cat:'residential',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:700,title:'Residential Apartment — <em>Tada - Aditya nagar</em>',
+  desc:'6-passenger MR elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',
+  tags:['Residential','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',
+  media:[{type: 'image', src: 'media/projects/venugopal.png' },{type:'iframe',src:'https://drive.google.com/file/d/1AWK-hRyGT4Z6iI55_Iv3aEnKierTBnF6/preview'}]},
+
+  {cat:'lodges-hotels',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:800,title:'Lodge/Hotel — <em>Tirupati - Postal Colony</em>',
+  desc:'6-passenger MR elevator installed in a 3-floor lodge/hotel building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor lodge/hotel building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',
+  tags:['Lodge/Hotel','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',
+  media:[{type: 'image', src: 'media/projects/chakry.png' },{type:'iframe',src:'https://drive.google.com/file/d/1lDLx_SK6jfJTvc1upUjx4q4PFlcBNrta/preview'},{type:'iframe',src:'https://drive.google.com/file/d/10kRWc54oJG3KiAUL1gUPjY-iIcMJdzUY/preview'}]},
+*/
 ];
+
+/* ============================================================
+   STATE
+   ============================================================ */
 let showing=9, filterCat='all', filtered=[];
 let lbIdx=0, lbMediaIdx=0;
-let touchStartX=0, touchStartY=0, touchEndX=0, touchEndY=0;
+let touchStartX=0,touchStartY=0,touchEndX=0,touchEndY=0;
 let savedScrollY=0;
+let inFullscreen=false, fsMediaIdx=0;
+let _fsNativeActive=false; // tracks native fullscreen state
+/* RESIZE DEBOUNCE */
+let _resizeTimer=null;
+window.addEventListener('resize',()=>{
+  clearTimeout(_resizeTimer);
+  _resizeTimer=setTimeout(()=>{
+    if(document.getElementById('fs').classList.contains('o')) updateFsNavigation();
+  },200);
+},{passive:true});
+
+/*FILTER / RENDER GALLERY*/
 function getFiltered(){return filterCat==='all'?items:items.filter(i=>i.cat===filterCat);}
 function updateStats(){
   document.getElementById('totalCount').textContent=items.length;
   document.getElementById('commercialCount').textContent=items.filter(i=>i.cat==='commercial').length;
   document.getElementById('residentialCount').textContent=items.filter(i=>i.cat==='residential').length;
-  document.getElementById('industrialCount').textContent=items.filter(i=>['industrial','home-lifts'].includes(i.cat)).length;
+  document.getElementById('home-liftsCount').textContent=items.filter(i=>i.cat==='home-lifts').length;
+  document.getElementById('lodges-hotelsCount').textContent=items.filter(i=>i.cat==='lodges-hotels').length;
 }
 function updateFilterButtons(){
-  document.querySelectorAll('.fc2').forEach(btn=>btn.classList.toggle('on', btn.dataset.cat===filterCat));
+  document.querySelectorAll('.fc2').forEach(btn=>btn.classList.toggle('on',btn.dataset.cat===filterCat));
 }
+
+/* ============================================================
+   HISTORY
+   ============================================================ */
 function getCurrentState(){
-  return {
-    filterCat,
-    showing,
-    lbOpen: document.getElementById('lb').classList.contains('o'),
-    lbIdx,
-    lbMediaIdx,
-    scrollY: window.scrollY||0
-  };
+  return{filterCat,showing,lbOpen:document.getElementById('lb').classList.contains('o'),lbIdx,lbMediaIdx,scrollY:window.scrollY||0};
 }
 function replaceHistoryState(){window.history.replaceState(getCurrentState(),'');}
 function pushHistoryState(){window.history.pushState(getCurrentState(),'');}
 function restoreState(state){
-  if(!state) return;
-  filterCat = state.filterCat || 'all';
-  showing = typeof state.showing==='number' ? state.showing : 9;
-  lbIdx = typeof state.lbIdx==='number' ? state.lbIdx : 0;
-  lbMediaIdx = typeof state.lbMediaIdx==='number' ? state.lbMediaIdx : 0;
+  if(!state)return;
+  filterCat=state.filterCat||'all';
+  showing=typeof state.showing==='number'?state.showing:9;
+  lbIdx=typeof state.lbIdx==='number'?state.lbIdx:0;
+  lbMediaIdx=typeof state.lbMediaIdx==='number'?state.lbMediaIdx:0;
   updateFilterButtons();
   renderGallery(false);
-  if(state.lbOpen && filtered[lbIdx]){
-    openLb(lbIdx, false);
-  } else {
-    closeLb(false);
-  }
-  setTimeout(()=>window.scrollTo(0, state.scrollY||0), 20);
+  if(state.lbOpen&&filtered[lbIdx]){openLb(lbIdx,false);}
+  else{closeLb(false);}
+  setTimeout(()=>window.scrollTo(0,state.scrollY||0),20);
 }
-window.addEventListener('popstate', e=>{ if(e.state) restoreState(e.state); });
+window.addEventListener('popstate',e=>{
+  // If native fullscreen is active, exit it first
+  if(_fsNativeActive){
+    exitNativeFullscreen();
+    return;
+  }
+  if(document.getElementById('fs').classList.contains('o')){closeFs();return;}
+  if(e.state)restoreState(e.state);
+});
+
+/* ============================================================
+   RENDER GALLERY
+   ============================================================ */
 function renderGallery(saveHistory=true){
   filtered=getFiltered();
   const toShow=filtered.slice(0,showing);
   document.getElementById('gGrid').innerHTML=toShow.map((item,idx)=>{
-    const thumbnailHTML=item.media&&item.media.length>0
-      ?`<img src="${item.media[0].src}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:1;">`
-      :`<i class="fas ${item.icon} gi-ico" style="font-size:3rem;color:rgba(201,168,76,.22);position:relative;z-index:1;"></i>`;
-    return`
-      <div class="gi" onclick="openLb(${idx})" tabindex="0" role="button" aria-label="View ${item.title.replace(/<[^>]+>/g,'')}">
-        <div class="gi-img" style="height:${item.h}px;">
-          <div class="gi-img-inner" style="background:${item.bg};inset:0;position:absolute;z-index:0;"></div>
-          <div class="gi-ov"><i class="fas fa-expand-alt gi-ov-ico"></i></div>
-          ${thumbnailHTML}
+    let thumbnailHTML='';
+    if(item.media&&item.media.length>0){
+      const m=item.media[0];
+      if(m.type==='image'){
+        thumbnailHTML=`<img src="${m.src}" alt="${item.title.replace(/<[^>]+>/g,'')}" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:1;" loading="lazy">`;
+      } else if(m.type==='video'&&m.thumb){
+        thumbnailHTML=`<img src="${m.thumb}" alt="${item.title.replace(/<[^>]+>/g,'')}" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:1;" loading="lazy">`;
+      } else if(m.type==='video'){
+        thumbnailHTML=`<i class="fas fa-play-circle gi-ico" style="font-size:3rem;color:rgba(201,168,76,.4);position:relative;z-index:1;"></i>`;
+      } else {
+        thumbnailHTML=`<i class="fas fa-film gi-ico" style="font-size:3rem;color:rgba(201,168,76,.4);position:relative;z-index:1;"></i>`;
+      }
+    } else {
+      thumbnailHTML=`<i class="fas ${item.icon} gi-ico" style="font-size:3rem;color:rgba(201,168,76,.22);position:relative;z-index:1;"></i>`;
+    }
+    return`<div class="gi" onclick="openLb(${idx})" tabindex="0" role="button" aria-label="View ${item.title.replace(/<[^>]+>/g,'')}">
+      <div class="gi-img" style="height:${item.h}px;">
+        <div class="gi-img-inner" style="background:${item.bg};inset:0;position:absolute;z-index:0;"></div>
+        <div class="gi-ov"><i class="fas fa-expand-alt gi-ov-ico"></i></div>
+        ${thumbnailHTML}
+      </div>
+      <div class="gi-cap">
+        <div class="gi-tag-row">${item.tags.map(t=>`<span class="tag t-gold">${t}</span>`).join('')}</div>
+        <div class="gi-title">${item.title}</div>
+        <div class="gi-sub">${item.desc.substring(0,90)}…</div>
+        <div class="gi-foot">
+          <span><i class="fas fa-calendar"></i>${item.year}</span>
+          <span><i class="fas fa-layer-group"></i>${item.floors}</span>
+          <span><i class="fas fa-users"></i>${item.capacity}</span>
         </div>
-        <div class="gi-cap">
-          <div class="gi-tag-row">${item.tags.map(t=>`<span class="tag t-gold">${t}</span>`).join('')}</div>
-          <div class="gi-title">${item.title}</div>
-          <div class="gi-sub">${item.desc.substring(0,90)}…</div>
-          <div class="gi-foot">
-            <span><i class="fas fa-calendar"></i>${item.year}</span>
-            <span><i class="fas fa-layer-group"></i>${item.floors}</span>
-            <span><i class="fas fa-users"></i>${item.capacity}</span>
-          </div>
-        </div>
-      </div>`;
+      </div>
+    </div>`;
   }).join('');
   document.getElementById('shownCount').textContent=toShow.length;
   document.getElementById('allCount').textContent=filtered.length;
   updateStats();
   document.getElementById('lmBtn').style.display=showing>=filtered.length?'none':'inline-flex';
-  document.querySelectorAll('#gGrid .gi').forEach(el=>el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); }}));
-  if(saveHistory) replaceHistoryState();
+  document.querySelectorAll('#gGrid .gi').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}}));
+  if(saveHistory)replaceHistoryState();
 }
 function filterGallery(cat,btn){filterCat=cat;showing=9;updateFilterButtons();renderGallery();pushHistoryState();}
 function loadMore(){showing+=6;renderGallery();pushHistoryState();}
-function cleanupVideo(){const video=document.querySelector('#lbMediaContainer video');if(video){video.pause();video.currentTime=0;}}
-function handleVideoEnded(){cleanupVideo();}
+
+/* ============================================================
+   MEDIA CLEANUP
+   ============================================================ */
+function stopAllMedia(){
+  document.querySelectorAll('video').forEach(v=>{v.pause();v.currentTime=0;});
+  document.querySelectorAll('iframe').forEach(f=>{const s=f.src;f.src='';f.src=s;});
+}
+function cleanupVideo(){const v=document.querySelector('#lbMediaContainer video');if(v){v.pause();v.currentTime=0;}}
+
+/* ============================================================
+   THUMBNAIL STRIP BUILDER
+   ============================================================ */
+function getThumbIconForType(type){
+  if(type==='image')return'fa-image';
+  if(type==='video')return'fa-video';
+  return'fa-film';
+}
+function buildThumbnailStrip(media,activeIdx,containerId,onClickFn){
+  const container=document.getElementById(containerId);
+  if(!container)return;
+  if(!media||media.length<=1){container.innerHTML='';container.style.display='none';return;}
+  container.style.display='flex';
+  container.innerHTML=media.map((m,i)=>{
+    const isActive=i===activeIdx;
+    let thumbContent='';
+    if(m.type==='image'){
+      thumbContent=`<img src="${m.src}" alt="Thumbnail ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:.25rem;">`;
+    } else if(m.type==='video'&&m.thumb){
+      thumbContent=`<img src="${m.thumb}" alt="Thumbnail ${i+1}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:.25rem;">`;
+    } else {
+      const ico=getThumbIconForType(m.type);
+      thumbContent=`<i class="fas ${ico}" style="font-size:1.1rem;color:${isActive?'var(--gold)':'rgba(201,168,76,.5)'};"></i>`;
+    }
+    return`<button onclick="${onClickFn}(${i})" role="tab" aria-selected="${isActive}" aria-label="Thumbnail ${i+1}"
+      style="flex-shrink:0;width:52px;height:42px;border-radius:.35rem;overflow:hidden;
+             border:2px solid ${isActive?'var(--gold)':'rgba(201,168,76,.2)'};
+             background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;
+             cursor:pointer;transition:border-color .2s ease,transform .2s ease;padding:0;
+             ${isActive?'transform:scale(1.08);':''}"
+      ${isActive?'data-active="true"':''}>
+      ${thumbContent}
+    </button>`;
+  }).join('');
+  // Scroll active thumb into view
+  setTimeout(()=>{
+    const activeBtn=container.querySelector('[data-active="true"]');
+    if(activeBtn)activeBtn.scrollIntoView({inline:'center',behavior:'smooth',block:'nearest'});
+  },50);
+}
+
+/* ============================================================
+   SPINNER HELPERS
+   ============================================================ */
+function showSpinner(id){const el=document.getElementById(id);if(el){el.style.display='flex';}}
+function hideSpinner(id){const el=document.getElementById(id);if(el){el.style.display='none';}}
+
+/* ============================================================
+   LIGHTBOX RENDER MEDIA
+   ============================================================ */
 function renderMedia(){
   const item=filtered[lbIdx];
   const media=item.media||[];
@@ -331,32 +563,73 @@ function renderMedia(){
     document.getElementById('lbMediaDots').innerHTML='';
     document.getElementById('lbMediaPrev').style.display='none';
     document.getElementById('lbMediaNext').style.display='none';
+    buildThumbnailStrip([],-1,'lbThumbs','switchMedia');
     return;
   }
   lbMediaIdx=Math.max(0,Math.min(lbMediaIdx,media.length-1));
   const current=media[lbMediaIdx];
   let mediaHTML='';
+  showSpinner('lbSpinner');
+
   if(current.type==='image'){
-    mediaHTML=`<img src="${current.src}" alt="Project media" style="max-width:100%;max-height:100%;object-fit:contain;">`;
+    mediaHTML=`<img src="${current.src}" alt="Project media" onload="hideSpinner('lbSpinner')" onerror="hideSpinner('lbSpinner')"
+      style="width:100%;height:100%;object-fit:contain;border-radius:16px;display:block;animation:lbin .3s ease;">`;
   } else if(current.type==='video'){
-    mediaHTML=`<video controls playsinline webkit-playsinline controlsList="nodownload nofullscreen noremoteplayback" disablepictureinpicture oncontextmenu="return false;" onended="handleVideoEnded()" style="max-width:100%;max-height:100%;object-fit:contain;touch-action:auto;pointer-events:auto;"><source src="${current.src}" type="video/mp4">Your browser does not support the video tag.</video>`;
+    mediaHTML=`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000;border-radius:16px;overflow:hidden;">
+      <video controls playsinline webkit-playsinline preload="metadata"
+        controlsList="nodownload noremoteplayback" disablepictureinpicture oncontextmenu="return false;"
+        onloadeddata="hideSpinner('lbSpinner')" onerror="hideSpinner('lbSpinner')"
+        style="width:100%;height:auto;max-width:100%;max-height:80vh;object-fit:contain;border-radius:16px;background:#000;display:block;">
+        <source src="${current.src}" type="video/mp4">
+      </video></div>`;
+  } else if(current.type==='iframe'){
+    mediaHTML=`<div style="width:100%;display:flex;justify-content:center;align-items:center;background:#000;border-radius:16px;overflow:hidden;height:min(85vh,700px);min-height:400px;display:block;">
+      <iframe src="${current.src}" allow="autoplay" allowfullscreen loading="lazy"
+        onload="hideSpinner('lbSpinner')"
+        style="width:100%;height:85vh;min-height:500px;border:none;border-radius:16px;background:#000;display:block;"></iframe></div>`;
+        
   }
+
   container.innerHTML=mediaHTML;
+  addMediaClickListeners();
+
+  // Counter
   document.getElementById('lbMediaCounter').innerHTML=`${lbMediaIdx+1} / ${media.length}`;
+
+  // Nav buttons
   document.getElementById('lbMediaPrev').style.display=media.length>1?'flex':'none';
   document.getElementById('lbMediaNext').style.display=media.length>1?'flex':'none';
-  document.getElementById('lbMediaDots').innerHTML=media.map((m,i)=>`<div class="lb-media-dot ${i===lbMediaIdx?'active':''}" onclick="switchMedia(${i})"></div>`).join('');
+
+  // Dots
+  document.getElementById('lbMediaDots').innerHTML=media.map((m,i)=>`
+    <div class="lb-media-dot ${i===lbMediaIdx?'active':''}" onclick="switchMedia(${i})"
+         role="button" tabindex="0" aria-label="Go to media ${i+1}"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchMedia(${i});}"></div>
+  `).join('');
+
+  // Thumbnail strip
+  buildThumbnailStrip(media,lbMediaIdx,'lbThumbs','switchMedia');
+
   replaceHistoryState();
+
+  // Auto-hide spinner after 4s fallback
+  setTimeout(()=>hideSpinner('lbSpinner'),4000);
 }
+
 function switchMedia(idx){
   const item=filtered[lbIdx];
   const media=item.media||[];
   if(media.length===0)return;
+  stopAllMedia();
   lbMediaIdx=(idx+media.length)%media.length;
   renderMedia();
 }
-function openLb(idx, addHistory=true){
-  if(!filtered[idx]) return;
+
+/* ============================================================
+   OPEN / CLOSE LIGHTBOX
+   ============================================================ */
+function openLb(idx,addHistory=true){
+  if(!filtered[idx])return;
   lbIdx=idx;lbMediaIdx=0;
   const item=filtered[idx];
   renderMedia();
@@ -370,15 +643,27 @@ function openLb(idx, addHistory=true){
     <span class="lb-mi"><i class="fas fa-tachometer-alt"></i>${item.speed}</span>
     <span class="lb-mi"><i class="fas fa-map-marker-alt"></i>${item.tags[item.tags.length-1]}</span>
   `;
-  document.getElementById('lb').classList.add('o');
+  const lbEl=document.getElementById('lb');
+  lbEl.classList.add('o');
   lockBodyScroll();
-  if(addHistory) pushHistoryState();
+  // Focus trap: focus close button
+  setTimeout(()=>{const btn=lbEl.querySelector('.lb-x');if(btn)btn.focus();},100);
+  if(addHistory)pushHistoryState();
 }
-function closeLb(addHistory=true){cleanupVideo();document.getElementById('lb').classList.remove('o');restoreBodyScroll();if(addHistory) pushHistoryState();}
-function lbNav(d){lbIdx=(lbIdx+d+filtered.length)%filtered.length;lbMediaIdx=0;const item=filtered[lbIdx];if(!item)return;openLb(lbIdx,false);}
-const lbMediaEl=document.getElementById('lbMedia');
+function closeLb(addHistory=true){
+  cleanupVideo();
+  stopAllMedia();
+  document.getElementById('lb').classList.remove('o');
+  restoreBodyScroll();
+  if(addHistory)pushHistoryState();
+}
+function lbNav(d){lbIdx=(lbIdx+d+filtered.length)%filtered.length;lbMediaIdx=0;openLb(lbIdx,false);}
+
+/* ============================================================
+   SCROLL LOCK
+   ============================================================ */
 function lockBodyScroll(){
-  savedScrollY = window.scrollY || window.pageYOffset;
+  savedScrollY=window.scrollY||window.pageYOffset;
   document.documentElement.style.overflow='hidden';
   document.body.style.overflow='hidden';
   document.body.style.position='fixed';
@@ -391,74 +676,347 @@ function restoreBodyScroll(){
   document.body.style.position='';
   document.body.style.top='';
   document.body.style.width='';
-  window.scrollTo(0, savedScrollY);
+  window.scrollTo(0,savedScrollY);
 }
+
+/* ============================================================
+   VIDEO TOUCH DETECTION
+   ============================================================ */
 function isVideoTouch(e){
-  const target = e.target;
-  if(target && target.closest && target.closest('video')) return true;
-  const path = e.composedPath && e.composedPath();
-  if(path && path.some(node=>node && node.tagName==='VIDEO')) return true;
-  const point = e.changedTouches ? e.changedTouches[0] : e;
-  if(point && point.clientX !== undefined && point.clientY !== undefined){
-    const videos = document.querySelectorAll('#lbMediaContainer video');
-    for(const video of videos){
-      const rect = video.getBoundingClientRect();
-      if(point.clientX >= rect.left && point.clientX <= rect.right && point.clientY >= rect.top && point.clientY <= rect.bottom){
-        return true;
-      }
+  const target=e.target;
+  if(target&&target.closest&&target.closest('video'))return true;
+  const path=e.composedPath&&e.composedPath();
+  if(path&&path.some(n=>n&&n.tagName==='VIDEO'))return true;
+  const point=e.changedTouches?e.changedTouches[0]:e;
+  if(point&&point.clientX!==undefined){
+    const videos=document.querySelectorAll('#lbMediaContainer video');
+    for(const v of videos){
+      const r=v.getBoundingClientRect();
+      if(point.clientX>=r.left&&point.clientX<=r.right&&point.clientY>=r.top&&point.clientY<=r.bottom)return true;
     }
   }
   return false;
 }
+
+/* ============================================================
+   LIGHTBOX TOUCH SWIPE
+   ============================================================ */
+const lbMediaEl=document.getElementById('lbMedia');
 lbMediaEl.addEventListener('touchstart',e=>{
-  const item=filtered[lbIdx] || {};
-  const current= item.media && item.media[lbMediaIdx];
-  if(current && current.type==='video'){e.stopPropagation();return;}
+  const item=filtered[lbIdx]||{};
+  const cur=item.media&&item.media[lbMediaIdx];
+  if(cur&&cur.type==='video'){e.stopPropagation();return;}
   if(isVideoTouch(e)){e.stopPropagation();return;}
   const touch=e.changedTouches[0];
-  touchStartX=touch.clientX;
-  touchStartY=touch.clientY;
-});
+  touchStartX=touch.clientX;touchStartY=touch.clientY;
+},{passive:true});
 lbMediaEl.addEventListener('touchend',e=>{
-  const item=filtered[lbIdx] || {};
-  const current= item.media && item.media[lbMediaIdx];
-  if(current && current.type==='video'){e.stopPropagation();return;}
+  const item=filtered[lbIdx]||{};
+  const cur=item.media&&item.media[lbMediaIdx];
+  if(cur&&cur.type==='video'){e.stopPropagation();return;}
   if(isVideoTouch(e)){e.stopPropagation();return;}
   const touch=e.changedTouches[0];
-  touchEndX=touch.clientX;
-  touchEndY=touch.clientY;
-  const dx=touchEndX-touchStartX;
-  const dy=touchEndY-touchStartY;
+  touchEndX=touch.clientX;touchEndY=touch.clientY;
+  const dx=touchEndX-touchStartX,dy=touchEndY-touchStartY;
   if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){
-    if(dx<0) switchMedia(lbMediaIdx+1);
-    else switchMedia(lbMediaIdx-1);
+    if(dx<0)switchMedia(lbMediaIdx+1);else switchMedia(lbMediaIdx-1);
   }
 });
 lbMediaEl.addEventListener('pointerdown',e=>{
-  const item=filtered[lbIdx] || {};
-  const current= item.media && item.media[lbMediaIdx];
-  if(current && current.type==='video'){e.stopPropagation();return;}
+  const item=filtered[lbIdx]||{};
+  const cur=item.media&&item.media[lbMediaIdx];
+  if(cur&&cur.type==='video'){e.stopPropagation();return;}
   if(isVideoTouch(e)){e.stopPropagation();return;}
-  touchStartX=e.clientX;
-  touchStartY=e.clientY;
+  touchStartX=e.clientX;touchStartY=e.clientY;
 });
 lbMediaEl.addEventListener('pointerup',e=>{
-  const item=filtered[lbIdx] || {};
-  const current= item.media && item.media[lbMediaIdx];
-  if(current && current.type==='video'){e.stopPropagation();return;}
+  const item=filtered[lbIdx]||{};
+  const cur=item.media&&item.media[lbMediaIdx];
+  if(cur&&cur.type==='video'){e.stopPropagation();return;}
   if(isVideoTouch(e)){e.stopPropagation();return;}
-  touchEndX=e.clientX;
-  touchEndY=e.clientY;
-  const dx=touchEndX-touchStartX;
-  const dy=touchEndY-touchStartY;
+  touchEndX=e.clientX;touchEndY=e.clientY;
+  const dx=touchEndX-touchStartX,dy=touchEndY-touchStartY;
   if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){
-    if(dx<0) switchMedia(lbMediaIdx+1);
-    else switchMedia(lbMediaIdx-1);
+    if(dx<0)switchMedia(lbMediaIdx+1);else switchMedia(lbMediaIdx-1);
   }
 });
+
+/* ============================================================
+   NATIVE FULLSCREEN API
+   ============================================================ */
+function requestNativeFullscreen(el){
+  try{
+    if(el.requestFullscreen)return el.requestFullscreen();
+    if(el.webkitRequestFullscreen)return el.webkitRequestFullscreen();
+    if(el.mozRequestFullScreen)return el.mozRequestFullScreen();
+    if(el.msRequestFullscreen)return el.msRequestFullscreen();
+  }catch(err){console.warn('Fullscreen request failed:',err);}
+  return Promise.resolve();
+}
+function exitNativeFullscreen(){
+  try{
+    if(document.exitFullscreen)document.exitFullscreen();
+    else if(document.webkitExitFullscreen)document.webkitExitFullscreen();
+    else if(document.mozCancelFullScreen)document.mozCancelFullScreen();
+    else if(document.msExitFullscreen)document.msExitFullscreen();
+  }catch(err){console.warn('Exit fullscreen failed:',err);}
+}
+function getNativeFullscreenElement(){
+  return document.fullscreenElement||document.webkitFullscreenElement||
+         document.mozFullScreenElement||document.msFullscreenElement||null;
+}
+// Listen for native fullscreen changes
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(ev=>{
+  document.addEventListener(ev,()=>{
+    const fsEl=getNativeFullscreenElement();
+    _fsNativeActive=!!fsEl;
+    if(!fsEl&&inFullscreen){
+      // User exited native fullscreen (ESC, back, etc.) — close our overlay too
+      closeFs();
+    }
+  });
+});
+
+/* ============================================================
+   FULLSCREEN OPEN / CLOSE
+   ============================================================ */
+function openFs(){
+  inFullscreen=true;
+  const fsEl=document.getElementById('fs');
+  fsEl.classList.add('o');
+  lockBodyScroll();
+  // Attempt native fullscreen on the fs element
+  requestNativeFullscreen(fsEl).catch(()=>{
+    // Graceful fallback — overlay already visible
+  });
+  pushHistoryState();
+  setTimeout(()=>{const btn=fsEl.querySelector('.fs-close');if(btn)btn.focus();},100);
+}
+function closeFs(){
+  inFullscreen=false;
+  const fsEl=document.getElementById('fs');
+  // Stop media inside fullscreen
+  fsEl.querySelectorAll('video').forEach(v=>{v.pause();v.currentTime=0;});
+  fsEl.querySelectorAll('iframe').forEach(f=>{const s=f.src;f.src='';f.src=s;});
+  fsEl.classList.add('closing');
+  setTimeout(()=>{fsEl.classList.remove('o','closing');},300);
+  restoreBodyScroll();
+  if(_fsNativeActive)exitNativeFullscreen();
+  replaceHistoryState();
+}
+
+/* ============================================================
+   FULLSCREEN NAVIGATION
+   ============================================================ */
+function updateFsNavigation(){
+  const item=filtered[lbIdx];
+  const media=item.media||[];
+  document.getElementById('fsCounter').textContent=`${fsMediaIdx+1} / ${media.length}`;
+  const prevBtn=document.getElementById('fsPrev');
+  const nextBtn=document.getElementById('fsNext');
+  prevBtn.style.display=media.length>1?'flex':'none';
+  nextBtn.style.display=media.length>1?'flex':'none';
+  const dotsContainer=document.getElementById('fsDots');
+  if(media.length>1){
+    dotsContainer.innerHTML=media.map((m,i)=>`
+      <div class="fs-dot ${i===fsMediaIdx?'active':''}"
+           onclick="goFsMedia(${i})" role="tab" tabindex="0"
+           aria-selected="${i===fsMediaIdx}" aria-label="Go to media ${i+1}"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goFsMedia(${i});}"></div>
+    `).join('');
+  } else {dotsContainer.innerHTML='';}
+  // Thumbnail strip in fullscreen
+  buildThumbnailStrip(media,fsMediaIdx,'fsThumbs','goFsMedia');
+}
+function goFsMedia(idx){
+  const item=filtered[lbIdx];
+  const media=item.media||[];
+  if(idx<0||idx>=media.length)return;
+  fsMediaIdx=idx;
+  renderFullscreenMedia();
+}
+function switchFsMedia(direction){
+  const item=filtered[lbIdx];
+  const media=item.media||[];
+  if(media.length<=1)return;
+  fsMediaIdx=(fsMediaIdx+direction+media.length)%media.length;
+  renderFullscreenMedia();
+}
+
+/* ============================================================
+   FULLSCREEN RENDER MEDIA
+   ============================================================ */
+function renderFullscreenMedia(){
+  const item=filtered[lbIdx];
+  const media=item.media||[];
+  if(media.length===0){closeFs();return;}
+  fsMediaIdx=Math.max(0,Math.min(fsMediaIdx,media.length-1));
+  const current=media[fsMediaIdx];
+  const container=document.getElementById('fsContainer');
+  if(!current){closeFs();return;}
+  showSpinner('fsSpinner');
+  let mediaHTML='';
+  if(current.type==='image'){
+    mediaHTML=`<img src="${current.src}" alt="Project media fullscreen" class="fs-media"
+      style="max-width:100%;max-height:100%;object-fit:contain;cursor:pointer;transition:transform .2s ease;animation:lbin .4s ease;"
+      onload="hideSpinner('fsSpinner')" onerror="hideSpinner('fsSpinner')"
+      onclick="closeFs()">`;
+  } else if(current.type==='video'){
+    mediaHTML=`<div class="fs-media video-wrapper" style="background:#000;">
+      <video controls controlsList="nodownload noremoteplayback" disablepictureinpicture
+        playsinline webkit-playsinline preload="metadata" oncontextmenu="return false;" autoplay
+        onloadeddata="hideSpinner('fsSpinner')" onerror="hideSpinner('fsSpinner')"
+        style="width:100%;height:100%;object-fit:contain;">
+        <source src="${current.src}" type="video/mp4">
+      </video></div>`;
+  } else if(current.type==='iframe'){
+    mediaHTML=`<div class="fs-media video-wrapper" style="background:#000;width:100%;height:100%;">
+      <iframe src="${current.src}" allow="autoplay *; fullscreen *" allowfullscreen loading="lazy"
+        onload="hideSpinner('fsSpinner')"
+        style="width:100%;height:100%;border:none;background:#000;"></iframe></div>`;
+  }
+  container.innerHTML=mediaHTML;
+  updateFsNavigation();
+  setTimeout(()=>hideSpinner('fsSpinner'),5000);
+}
+
+/* ============================================================
+   MEDIA CLICK LISTENERS (open fullscreen from lightbox)
+   ============================================================ */
+const _imgZoomStyle=document.createElement('style');
+_imgZoomStyle.textContent=`@keyframes imageZoomIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}`;
+document.head.appendChild(_imgZoomStyle);
+
+function addMediaClickListeners(){
+  const c=document.getElementById('lbMediaContainer');if(!c)return;
+  c.querySelectorAll('img').forEach(img=>{
+    img.style.cursor='pointer';
+    img.addEventListener('click',e=>{e.stopPropagation();fsMediaIdx=lbMediaIdx;renderFullscreenMedia();openFs();});
+  });
+  c.querySelectorAll('video').forEach(v=>{
+    v.addEventListener('click',e=>{if(e.target===v){e.stopPropagation();fsMediaIdx=lbMediaIdx;renderFullscreenMedia();openFs();}});
+  });
+  c.querySelectorAll('iframe').forEach(f=>{
+    f.parentElement&&(f.parentElement.style.cursor='pointer');
+    f.parentElement&&f.parentElement.addEventListener('click',e=>{e.stopPropagation();fsMediaIdx=lbMediaIdx;renderFullscreenMedia();openFs();});
+  });
+}
+
+/* ============================================================
+   FULLSCREEN TOUCH SWIPE
+   ============================================================ */
+(function setupFsGestures(){
+  const fs=document.getElementById('fs');
+  let fsTX=0,fsTY=0;
+  fs.addEventListener('touchstart',e=>{
+    if(e.target.closest('video')||e.target.closest('.fs-nav')||e.target.closest('.fs-close')||e.target.closest('.fs-dot')||e.target.closest('button'))return;
+    fsTX=e.changedTouches[0].clientX;fsTY=e.changedTouches[0].clientY;
+  },{passive:true});
+  fs.addEventListener('touchend',e=>{
+    if(e.target.closest('video')||e.target.closest('.fs-nav')||e.target.closest('.fs-close')||e.target.closest('.fs-dot')||e.target.closest('button'))return;
+    const dx=e.changedTouches[0].clientX-fsTX,dy=e.changedTouches[0].clientY-fsTY;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)){
+      switchFsMedia(dx>0?-1:1);
+    }
+  },{passive:true});
+})();
+
+/* ============================================================
+   PINCH-TO-ZOOM FOR IMAGES (lightbox)
+   ============================================================ */
+(function setupPinchZoom(){
+  let scale=1,lastScale=1,originX=0,originY=0,isPinching=false;
+  let touches={};
+  const lb=document.getElementById('lbMedia');
+  function getImg(){return lb.querySelector('#lbMediaContainer img');}
+  lb.addEventListener('touchstart',e=>{
+    if(e.touches.length===2){
+      isPinching=true;
+      touches={a:e.touches[0],b:e.touches[1]};
+    }
+  },{passive:true});
+  lb.addEventListener('touchmove',e=>{
+    const img=getImg();if(!img||e.touches.length!==2)return;
+    const dx=e.touches[0].clientX-e.touches[1].clientX;
+    const dy=e.touches[0].clientY-e.touches[1].clientY;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    const prevDx=touches.a.clientX-touches.b.clientX;
+    const prevDy=touches.a.clientY-touches.b.clientY;
+    const prevDist=Math.sqrt(prevDx*prevDx+prevDy*prevDy);
+    if(prevDist>0){
+      const delta=dist/prevDist;
+      scale=Math.max(1,Math.min(4,scale*delta));
+      img.style.transform=`scale(${scale})`;
+      img.style.transformOrigin='center center';
+      img.style.transition='none';
+    }
+    touches={a:e.touches[0],b:e.touches[1]};
+  },{passive:true});
+  lb.addEventListener('touchend',e=>{
+    if(e.touches.length<2){
+      if(isPinching){isPinching=false;lastScale=scale;}
+      if(scale<=1){scale=1;const img=getImg();if(img){img.style.transform='';img.style.transition='transform .3s ease';}}
+    }
+  },{passive:true});
+})();
+
+/* ============================================================
+   KEYBOARD SHORTCUTS
+   ============================================================ */
+document.addEventListener('keydown',e=>{
+  const lbEl=document.getElementById('lb');
+  const fsEl=document.getElementById('fs');
+
+  if(fsEl.classList.contains('o')){
+    const item=filtered[lbIdx];
+    const mc=item&&item.media?item.media.length:0;
+    if(e.key==='Escape'){e.preventDefault();closeFs();}
+    else if(e.key==='ArrowLeft'&&mc>1){e.preventDefault();switchFsMedia(-1);}
+    else if(e.key==='ArrowRight'&&mc>1){e.preventDefault();switchFsMedia(1);}
+    return;
+  }
+
+  if(lbEl.classList.contains('o')){
+    const item=filtered[lbIdx];
+    const mc=item&&item.media?item.media.length:0;
+    if(e.key==='Escape'){e.preventDefault();closeLb();}
+    else if(e.key==='ArrowLeft'){
+      e.preventDefault();
+      if(mc>1&&lbMediaIdx>0)switchMedia(lbMediaIdx-1);
+      else if(mc===0||lbMediaIdx===0)lbNav(-1);
+    }
+    else if(e.key==='ArrowRight'){
+      e.preventDefault();
+      if(mc>1&&lbMediaIdx<mc-1)switchMedia(lbMediaIdx+1);
+      else if(mc===0||lbMediaIdx===mc-1)lbNav(1);
+    }
+  }
+});
+
+/* ============================================================
+   CLICK OUTSIDE TO CLOSE
+   ============================================================ */
 document.getElementById('lb').addEventListener('click',e=>{if(e.target===document.getElementById('lb'))closeLb();});
-document.addEventListener('keydown',e=>{if(document.getElementById('lb').classList.contains('o')){const item=filtered[lbIdx];const mediaCount=item.media?item.media.length:0;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft'){if(mediaCount>1&&lbMediaIdx>0){switchMedia(lbMediaIdx-1);}else if(mediaCount===0||lbMediaIdx===0){lbNav(-1);}}if(e.key==='ArrowRight'){if(mediaCount>1&&lbMediaIdx<mediaCount-1){switchMedia(lbMediaIdx+1);}else if(mediaCount===0||lbMediaIdx===mediaCount-1){lbNav(1);}}}});
+document.getElementById('fs').addEventListener('click',e=>{if(e.target.id==='fs')closeFs();});
+
+/* ============================================================
+   FOCUS TRAP IN LIGHTBOX
+   ============================================================ */
+document.getElementById('lb').addEventListener('keydown',e=>{
+  if(e.key!=='Tab')return;
+  const focusable=document.getElementById('lb').querySelectorAll('button,[tabindex="0"]');
+  const arr=Array.from(focusable).filter(el=>!el.disabled&&el.offsetParent!==null);
+  if(!arr.length)return;
+  const first=arr[0],last=arr[arr.length-1];
+  if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus();}}
+  else{if(document.activeElement===last){e.preventDefault();first.focus();}}
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
 renderGallery();
 </script>
+
 </body>
 </html>
