@@ -142,31 +142,39 @@
 </head>
 <body>
 
-<div id="loader"><div class="ld-logo">Bindu <b>Elevators</b></div><div class="ld-bar"><div class="ld-fill" id="ldf"></div></div><div class="ld-pct" id="ldp">0%</div></div>
+<div id="loader"><div class="ld-logo"><img src="media/binduelevatorslogo.png" alt="Bindu Elevators Logo" class="loaderlogo"><br>Bindu <b>Elevators </b></div><div class="ld-bar"><div class="ld-fill" id="ldf"></div></div><div class="ld-pct" id="ldp">0%</div></div>
 <button id="btt" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
 <a id="wa" href="https://wa.me/918179492454?text=Hello%20Bindu%20Elevators%2C%20I%27m%20interested%20in%20your%20services." target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
 <!-- NAV -->
-<nav id="nav">
-  <div class="ni"><a href="index.html" class="nl"><div class="li"><i ><img style="width: 45px; height: 45px; margin-top: 7px;" src="media/binduelevatorslogo.png" alt="Bindu Elevators Logo"></i></div><div><div class="lt">Bindu <span>Elevators</span></div><span class="ls">Elevating Your World</span></div></a>
-    <ul class="nls">
+<nav id="nav" aria-label="Main Navigation">
+  <div class="ni">
+    <a href="index.html" class="nl"><div class="li"><i ><img style="width: 45px; height: 45px; margin-top: 0px;" src="media/binduelevatorslogo.png" alt="Bindu Elevators Logo"></i></div><div><div class="lt">Bindu <span>Elevators</span></div><span class="ls">Elevating Your World</span></div></a>
+    </a>
+    <ul class="nls" role="list">
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#services">Services</a></li>
       <li><a href="index.html#products">Products</a></li>
-      <li><a href="gallery.html" class="act">Gallery</a></li>
-      <li><a href="rating.html">Reviews</a></li>
-      <li><a href="index.html#contact" class="ncta">Get Quote</a></li>
+      <li><a href="index.html#process">Process</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+      <li><a href="index.html#getquote" class="ncta">Get Quote</a></li>
     </ul>
-    <button class="nbg" id="burger"><span></span><span></span><span></span></button>
+    <button class="nbg" id="burger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
-<nav class="nm" id="mob">
-  <a href="index.html" onclick="cm()">Home</a>
+
+<!-- MOBILE MENU -->
+<nav class="nm" id="mob" aria-label="Mobile Navigation">
+  <a href="index.html#about"    onclick="cm()">About</a>
   <a href="index.html#services" onclick="cm()">Services</a>
   <a href="index.html#products" onclick="cm()">Products</a>
-  <a href="gallery.html" onclick="cm()">Gallery</a>
-  <a href="rating.html" onclick="cm()">Reviews</a>
-  <a href="index.html#contact" onclick="cm()" class="nmcta">Get Quote</a>
+  <a href="index.html#process"  onclick="cm()">Process</a>
+  <a href="gallery.html"  onclick="cm()">Gallery</a>
+  <a href="index.html#faq"      onclick="cm()">FAQ</a>
+  <a href="index.html#getquote"  onclick="cm()" class="nmcta">Get Quote</a>
 </nav>
 
 <!-- PAGE HERO -->
@@ -285,7 +293,7 @@
   <div class="ftop">
     <div class="fb">
       <a href="#home" class="nl" style="margin-bottom:.5rem;display:inline-flex;">
-      <a href="index.html" class="nl"><div class="li"><i ><img style="width: 50px; height: 50px; margin-top: 7px;" src="media/binduelevatorslogo.png" alt="Bindu Elevators Logo"></i></div><div><div class="lt">Bindu <span>Elevators</span></div><span class="ls">Elevating Your World</span></div></a>
+      <a href="index.html" class="nl"><div class="li"><i ><img style="width: 50px; height: 50px; margin-top: 0px;" src="media/binduelevatorslogo.png" alt="Bindu Elevators Logo"></i></div><div><div class="lt">Bindu <span>Elevators</span></div><span class="ls">Elevating Your World</span></div></a>
       </a>
       <p>Your trusted partner for premium elevator solutions across Andhra Pradesh. Quality, safety, and innovation in every lift we build.</p>
       <div class="slnks">
@@ -332,6 +340,22 @@ const items=[
   tags:['Commercial','6 Passenger','G+3 Building','SS 304 Cabin','Auto Doors','ARD System','VVVF Controller','Voice Announcement','Tiruchanur'],year:'2025',floors:'G+3 Floors',capacity:'6 Passengers',speed:'0.6 m/s',  
   media:[{type: 'image', src: 'media/projects/narsimhareddy.png' },{type:'iframe',src:'https://drive.google.com/file/d/1pQxPMDjHfOPNMzq_xr_Lyu_RDM4Pl4Ii/preview'}]},
 
+  {cat:'lodges-hotels',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:800,title:'Lodge/Hotel — <em>Tirupati - Postal Colony</em>',
+  desc:'4-passenger elevator installed in a G+4 lodge/hotel building at Postal Colony, Tirupati, Andhra Pradesh. Features a microprocessor-based down collective VVVF controller, 272 kg load capacity, 0.6 m/s speed, and 13-meter travel height. Equipped with SS 304 matt-finish cabin panels, SS full-vision automatic doors with SS door frames, PVC anti-skid flooring, SS mirror-finish ceiling, LED lighting, circular fan, LCD displays on all floors and inside the cabin, voice announcement system, emergency alarm with battery backup, ARD system, SHARP 5 HP induction motor, and USHA MARTIN rolling ropes for smooth, safe, silent, and reliable hotel operation.',
+  tags:['Lodge/Hotel','4 Passenger','G+4 Building','SS 304 Cabin','Full Vision Auto Door','ARD System','VVVF Controller','Voice Announcement','Tirupati'],year:'2025',floors:'G+4 Floors',capacity:'4 Passengers',speed:'0.6 m/s',  
+  media:[{type: 'image', src: 'media/projects/chakry.png' },{type:'iframe',src:'https://drive.google.com/file/d/1lDLx_SK6jfJTvc1upUjx4q4PFlcBNrta/preview'},{type:'iframe',src:'https://drive.google.com/file/d/10kRWc54oJG3KiAUL1gUPjY-iIcMJdzUY/preview'}]},
+  
+  {cat:'home-lifts',
+  icon:'fa-building',
+  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
+  h:400,title:'Home Lift — <em>Naidupeta - Darga road</em>',
+  desc:'2-passenger home lift installed in a G+1 residential building at Darga Road, Naidupeta. Features a 150 kg load capacity, 0.45 m/s speed, and 4-meter travel height. Equipped with an MS cabin, MS swing doors, LED lighting, ARD system, and semi-hoist motor with 1.2-ton capacity for smooth, safe, and reliable home lift operation.',
+  tags:['Home Lift','2 Passenger','G+1 Building','MS Cabin','Swing Door','ARD System','Naidupeta'],year:'2025',floors:'G+1 Floors',capacity:'2 Passengers',speed:'0.45 m/s',  
+  media:[{type: 'image', src: 'media/projects/saibaba.png' },{type:'iframe',src:'https://drive.google.com/file/d/1lYL_oHj431uN5z4T8s9ckLCKYeHCsLP2/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1zmVDyGnt9TzQMyl38_Ez61bCXkqMWcAt/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1YssJMACouBowSbizI4ST3sJGqLcLuhK_/preview'}]},
+  
   {cat:'residential',
   icon:'fa-building',
   bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
@@ -347,39 +371,23 @@ const items=[
   desc:'6-passenger elevator installed in a G+3 residential building at Housing Board Colony, Tada, Tirupati District, Andhra Pradesh. Features a microprocessor-based down collective VVVF controller, 408 kg load capacity, 0.6 m/s speed, and 10-meter travel height. Equipped with SS matt-finish cabin panels, SS door frames with collapsible gates, PVC anti-skid flooring, SS mirror-finish ceiling, LED lighting, circular fan, LCD displays on all floors and inside the cabin, voice announcement system, emergency alarm with battery backup, ARD system, SHARP 5 HP induction motor, and USHA MARTIN rolling ropes for smooth, safe, and reliable residential operation.',
   tags:['Residential','6 Passenger','G+3 Building','SS Cabin','Collapsible Gate','ARD System','VVVF Controller','Voice Announcement','Tada',],year:'2023',floors:'G+3 Floors',capacity:'6 Passengers',speed:'0.6 m/s',
   media:[{type: 'image', src: 'media/projects/rajesh.png' },{type:'iframe',src:'https://drive.google.com/file/d/12efoZjLyLp5Gcf2YvwZJBpQ7rWUk059a/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1iAb5RMso4TugCtqcf6Ctxw7dvFJVP18W/preview'}]},
-  /*
-  {cat:'home-lifts',
-  icon:'fa-building',
-  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
-  h:400,title:'Home Lift — <em>Naidupeta - Darga road</em>',
-  desc:'6-passenger MR elevator installed in a 3-floor commercial building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor commercial building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',
-  tags:['Home Lift','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',
-  media:[{type: 'image', src: 'media/projects/saibaba.png' },{type:'iframe',src:'https://drive.google.com/file/d/1lYL_oHj431uN5z4T8s9ckLCKYeHCsLP2/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1zmVDyGnt9TzQMyl38_Ez61bCXkqMWcAt/preview'},{type:'iframe',src:'https://drive.google.com/file/d/1YssJMACouBowSbizI4ST3sJGqLcLuhK_/preview'}]},
- 
-  {cat:'home-lifts',
-  icon:'fa-building',
-  bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
-  h:600,title:'Home Lift — <em>Tirupati - Near Municipal Park</em>',
-  desc:'6-passenger MR elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',
-  tags:['Home Lift','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',
-  media:[{type: 'image', src: 'media/projects/Ramanareddy.png' },{type:'iframe',src:'https://drive.google.com/file/d/1oOoQcU40kCxN094QtfiskqIEaUs-5NXm/preview'}]},
-
+  
   {cat:'residential',
   icon:'fa-building',
   bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
   h:700,title:'Residential Apartment — <em>Tada - Aditya nagar</em>',
-  desc:'6-passenger MR elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor residential building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',
-  tags:['Residential','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',
+  desc:'6-passenger elevator installed in a G+4 residential apartment at Aditya Nagar, Tada. Features a microprocessor-based down collective VVVF controller, 408 kg load capacity, 0.6 m/s speed, and 13-meter travel height. Equipped with SS cabin panels, SS collapsible gates, PVC anti-skid flooring, LED lighting, circular fan, LCD displays on all floors and inside the cabin, voice announcement system, emergency alarm with battery backup, ARD system, Monatory 5 HP induction motor, and USHA MARTIN rolling ropes for smooth, safe, silent, and reliable residential operation.',
+  tags:['Residential','6 Passenger','G+4 Building','SS Cabin','Collapsible Gate','ARD System','VVVF Controller','Voice Announcement','Tada'],year:'2021',floors:'G+4 Floors',capacity:'6 Passengers',speed:'0.6 m/s',  
   media:[{type: 'image', src: 'media/projects/venugopal.png' },{type:'iframe',src:'https://drive.google.com/file/d/1AWK-hRyGT4Z6iI55_Iv3aEnKierTBnF6/preview'}]},
-
-  {cat:'lodges-hotels',
+  
+  {cat:'home-lifts',
   icon:'fa-building',
   bg:'linear-gradient(135deg,#1a1208,#0d0d0d)',
-  h:800,title:'Lodge/Hotel — <em>Tirupati - Postal Colony</em>',
-  desc:'6-passenger MR elevator installed in a 3-floor lodge/hotel building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation. 6-passenger MRL elevator installed in a 3-floor lodge/hotel building. Features energy-efficient VFD drive, stainless steel cabin, automatic rescue device (ARD), and VVVF control system for smooth, silent operation.',
-  tags:['Lodge/Hotel','MR Elevator','Tirupati'],year:'2026',floors:'3 Floors',capacity:'6 Passengers',speed:'1.5 m/s',
-  media:[{type: 'image', src: 'media/projects/chakry.png' },{type:'iframe',src:'https://drive.google.com/file/d/1lDLx_SK6jfJTvc1upUjx4q4PFlcBNrta/preview'},{type:'iframe',src:'https://drive.google.com/file/d/10kRWc54oJG3KiAUL1gUPjY-iIcMJdzUY/preview'}]},
-*/
+  h:600,title:'Home Lift — <em>Tirupati - Near Municipal Park</em>',
+  desc:'6-passenger home lift installed in a G+3 residential building near Municipal Park, Tirupati. Features a microprocessor-based down collective VVVF controller, 408 kg load capacity, 0.6 m/s speed, and 10-meter travel height. Equipped with SS cabin panels, SS automatic telescopic doors, PVC anti-skid flooring, LED lighting, circular fan, LCD displays on all floors and inside the cabin, voice announcement system, emergency alarm with battery backup, ARD system, Monatory 5 HP induction motor, and USHA MARTIN rolling ropes for smooth, safe, silent, and reliable home lift operation.',
+  tags:['Home Lift','6 Passenger','G+3 Building','SS Cabin','Auto Telescopic Door','ARD System','VVVF Controller','Voice Announcement','Tirupati'],year:'2020',floors:'G+3 Floors',capacity:'6 Passengers',speed:'0.6 m/s',
+  media:[{type: 'image', src: 'media/projects/Ramanareddy.png' },{type:'iframe',src:'https://drive.google.com/file/d/1oOoQcU40kCxN094QtfiskqIEaUs-5NXm/preview'}]},
+
 ];
 
 /* ============================================================
@@ -576,7 +584,7 @@ function renderMedia(){
       style="width:100%;height:100%;object-fit:contain;border-radius:16px;display:block;animation:lbin .3s ease;">`;
   } else if(current.type==='video'){
     mediaHTML=`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000;border-radius:16px;overflow:hidden;">
-      <video controls playsinline webkit-playsinline preload="metadata"
+      <video controls playsinline webkit-playsinline preload="metadata" muted
         controlsList="nodownload noremoteplayback" disablepictureinpicture oncontextmenu="return false;"
         onloadeddata="hideSpinner('lbSpinner')" onerror="hideSpinner('lbSpinner')"
         style="width:100%;height:auto;max-width:100%;max-height:80vh;object-fit:contain;border-radius:16px;background:#000;display:block;">
@@ -584,7 +592,7 @@ function renderMedia(){
       </video></div>`;
   } else if(current.type==='iframe'){
     mediaHTML=`<div style="width:100%;display:flex;justify-content:center;align-items:center;background:#000;border-radius:16px;overflow:hidden;height:min(85vh,700px);min-height:400px;display:block;">
-      <iframe src="${current.src}" allow="autoplay" allowfullscreen loading="lazy"
+      <iframe src="${current.src}" allow="autoplay" allowfullscreen loading="lazy" muted
         onload="hideSpinner('lbSpinner')"
         style="width:100%;height:85vh;min-height:500px;border:none;border-radius:16px;background:#000;display:block;"></iframe></div>`;
         
@@ -864,14 +872,14 @@ function renderFullscreenMedia(){
   } else if(current.type==='video'){
     mediaHTML=`<div class="fs-media video-wrapper" style="background:#000;">
       <video controls controlsList="nodownload noremoteplayback" disablepictureinpicture
-        playsinline webkit-playsinline preload="metadata" oncontextmenu="return false;" autoplay
+        playsinline webkit-playsinline preload="metadata" oncontextmenu="return false;" autoplay muted
         onloadeddata="hideSpinner('fsSpinner')" onerror="hideSpinner('fsSpinner')"
         style="width:100%;height:100%;object-fit:contain;">
         <source src="${current.src}" type="video/mp4">
       </video></div>`;
   } else if(current.type==='iframe'){
     mediaHTML=`<div class="fs-media video-wrapper" style="background:#000;width:100%;height:100%;">
-      <iframe src="${current.src}" allow="autoplay *; fullscreen *" allowfullscreen loading="lazy"
+      <iframe src="${current.src}" allow="autoplay *; fullscreen *" allowfullscreen loading="lazy" muted
         onload="hideSpinner('fsSpinner')"
         style="width:100%;height:100%;border:none;background:#000;"></iframe></div>`;
   }
